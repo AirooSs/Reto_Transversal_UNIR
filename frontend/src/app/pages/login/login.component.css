@@ -1,0 +1,96 @@
+.login-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.login-modal {
+    background-color: #fce8e8;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 350px;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #333;
+}
+
+.login-title {
+    text-align: center;
+    color: #e8474a;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    label {
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        font-size: 0.85rem;
+        color: #333;
+        margin-bottom: 0.3rem;
+    }
+
+    input {
+        background-color: #f08080;
+        border: none;
+        border-radius: 20px;
+        padding: 0.6rem 1rem;
+        color: #fff;
+        outline: none;
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+    }
+
+    input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px #f08080 inset;
+        -webkit-text-fill-color: #fff;
+    }
+}
+
+.forgot-password {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 1rem 0;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+
+    a {
+        display: block;
+        color: #333;
+        text-decoration: underline;
+        margin-top: 0.3rem;
+        font-weight: normal;
+    }
+}
+
+.submit-btn {
+    display: block;
+    margin: 0 auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Fredoka One', cursive;
+    color: #e8474a;
+    font-size: 2rem;
+}
