@@ -2,6 +2,7 @@ package tienda.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,8 @@ import tienda.entidades.Evento;
 import tienda.service.EventoService;
 
 @RestController
-@RequestMapping("/evento")
+@RequestMapping("/eventos") // 1. Cambiado a plural para que coincida con tu Angular
+@CrossOrigin(origins = "http://localhost:4200")
 public class EventoRestController {
 	
 	@Autowired EventoService eventoservice;

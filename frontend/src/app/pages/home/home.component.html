@@ -9,15 +9,20 @@
   <div class="home-container">
     <!-- Columna izquierda - Evento fijo (siempre evento1) -->
     <div class="left-column">
-      <div class="evento-destacado" *ngIf="eventoFijo">
-        <div class="destacado-imagen">
-          <img [src]="eventoFijo.imagen" [alt]="eventoFijo.nombre">
-          <div class="destacado-fecha">{{ eventoFijo.fecha }}</div>
-          <a href="#" class="destacado-comprar" (click)="$event.preventDefault(); onComprarClick(eventoFijo)">COMPRAR</a>
-          <div class="destacado-nombre">{{ eventoFijo.nombre }}</div>
-        </div>
-      </div>
+  <div class="evento-destacado" *ngIf="eventoFijo">
+    <div class="destacado-imagen" (click)="onEventoClick(eventoFijo)" style="cursor: pointer;">
+      <img [src]="eventoFijo.imagen" [alt]="eventoFijo.nombre">
+      <div class="destacado-fecha">{{ eventoFijo.fecha }}</div>
+      
+      <a href="#" class="destacado-comprar" 
+         (click)="$event.stopPropagation(); $event.preventDefault(); onComprarClick(eventoFijo)">
+         COMPRAR
+      </a>
+      
+      <div class="destacado-nombre">{{ eventoFijo.nombre }}</div>
     </div>
+  </div>
+</div>
 
     <!-- Columna derecha - Grid de eventos -->
     <div class="right-column">

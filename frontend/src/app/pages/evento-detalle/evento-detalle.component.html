@@ -1,1 +1,51 @@
-<p>evento-detalle works!</p>
+<div class="artist-detail-container" *ngIf="artistaActual">
+
+    <section class="hero-image-side">
+        <img [src]="artistaActual.imagen || 'assets/evento' + artistaActual.id + '.png'" [alt]="artistaActual.nombre">
+        <div class="overlay-gradient"></div>
+    </section>
+
+    <section class="info-content-side">
+        <nav>
+            <a routerLink="/" class="back-link">← VOLVER A TOURS</a>
+        </nav>
+
+        <header class="artist-header">
+            <h1 class="artist-name-title">{{ artistaActual.nombre || 'Cargando Artista...' }}</h1>
+        </header>
+
+        <div class="concerts-section">
+            <div class="section-header">
+                <h3>Próximos conciertos</h3>
+                <span class="ver-todos-link">VER TODOS</span>
+            </div>
+
+            <div class="concert-row" *ngFor="let c of artistaActual.conciertos">
+                <div class="date-col">
+                    <span class="day-red">{{ c.dia }}</span>
+                    <span class="month-gray">{{ c.mes }}</span>
+                </div>
+
+                <div class="venue-col">
+                    <strong class="venue-name">{{ c.estadio }}</strong>
+                    <p class="city-name">{{ c.ciudad }}</p>
+                </div>
+
+                <div class="status-col">
+                    <div class="badge badge-soldout" *ngIf="c.soldOut">SOULD OUT</div>
+                    <div class="badge badge-few" *ngIf="c.pocasEntradas">POCAS ENTRADAS</div>
+                </div>
+
+                <div class="action-col">
+                    <button class="btn-oval" [class.btn-disabled]="c.soldOut" [disabled]="c.soldOut">
+                        {{ c.soldOut ? 'AGOTADO' : 'COMPRAR' }}
+                    </button>
+                </div>
+            </div>
+
+            <div *ngIf="artistaActual.conciertos?.length === 0" class="no-concerts">
+                No hay fechas confirmadas próximamente.
+            </div>
+        </div>
+    </section>
+</div>
