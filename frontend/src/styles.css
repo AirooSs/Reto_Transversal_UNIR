@@ -40,3 +40,15 @@ router-outlet + * {
 app-footer {
   flex-shrink: 0;
 }
+
+body.modal-open {
+  overflow: hidden;
+  padding-right: 17px; /* Compensa el ancho del scrollbar */
+}
+
+/* Para navegadores que no soportan padding-right en body */
+@media (max-width: 768px) {
+  body.modal-open {
+    padding-right: 0px;
+  }
+}

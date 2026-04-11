@@ -1,0 +1,92 @@
+/* src/app/pages/registro/registro.component.css */
+.registro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+}
+
+
+.registro-modal {
+  background-color: #fce8e8;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 380px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.registro-title {
+  text-align: center;
+  color: #e8474a;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.form-group input {
+  background-color: #f08080;
+  border: none;
+  border-radius: 20px;
+  padding: 0.6rem 1rem;
+  color: #fff;
+  outline: none;
+}
+
+.submit-btn {
+  display: block;
+  margin: 1.5rem auto 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Fredoka One', cursive;
+  color: #e8474a;
+  font-size: 1.8rem;
+}
+
+.submit-btn:hover {
+  color: #c0392b;
+}
+
+
+.error-mensaje {
+  color: #e8474a;
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  font-family: Arial, sans-serif;
+}

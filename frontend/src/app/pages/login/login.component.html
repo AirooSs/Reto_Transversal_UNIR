@@ -1,25 +1,26 @@
-<div class="login-overlay">
-    <div class="login-modal">
-        <button class="close-btn">✕</button>
-        <h2 class="login-title">INICIAR SESIÓN</h2>
+<!-- src/app/pages/login/login.component.html -->
+<div class="login-overlay" (click)="cerrarModal()">
+  <div class="login-modal" (click)="$event.stopPropagation()">
+    <button class="close-btn" (click)="cerrarModal()">✕</button>
+    <h2 class="login-title">INICIAR SESIÓN</h2>
 
-        <form>
-            <div class="form-group">
-                <label>E-mail</label>
-                <input type="email" />
-            </div>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="usuario@ejemplo.com" />
+      </div>
 
-            <div class="form-group">
-                <label>Contraseña</label>
-                <input type="password" />
-            </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" />
+      </div>
 
-            <p class="forgot-password">
-                ¿Olvidaste tu contraseña?
-                <a href="#">Haz click aquí para recuperarla</a>
-            </p>
+      <p class="forgot-password">
+        ¿Olvidaste tu contraseña?
+        <a href="javascript:void(0)" (click)="recuperarPassword()">Haz click aquí para recuperarla</a>
+      </p>
 
-            <button type="submit" class="submit-btn">OnStage</button>
-        </form>
-    </div>
+      <button type="submit" class="submit-btn">OnStage</button>
+    </form>
+  </div>
 </div>
