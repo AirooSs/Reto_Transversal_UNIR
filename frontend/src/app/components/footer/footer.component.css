@@ -1,9 +1,12 @@
+/* src/app/components/footer/footer.component.css */
 .footer {
   background-color: #2a1a1a;
   color: #fff;
   padding: 1rem 5%;
   width: 100%;
   box-sizing: border-box;
+  margin: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .footer_contenedor {
@@ -11,14 +14,54 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  font-family: 'Arial', sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-a {
-    color: #fff;
-    text-decoration: none;
+.footer_contenedor span {
+  opacity: 0.8;
+}
 
-    &:hover {
-        text-decoration: underline;
-    }
+.footer_contenedor a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: opacity 0.3s;
+  opacity: 0.8;
+}
+
+.footer_contenedor a:hover {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer {
+    padding: 0.6rem 5%;
+  }
+  
+  .footer_contenedor {
+    font-size: 0.7rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .footer_contenedor a {
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer_contenedor {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  
+  .footer_contenedor a {
+    margin-left: 0;
+  }
 }

@@ -1,1 +1,33 @@
-<p>home works!</p>
+<!-- src/app/pages/home/home.component.html -->
+<div class="home-page">
+  <!-- Banner publicitario -->
+  <div class="banner-container">
+    <img src="/assets/banner.png" alt="Banner publicitario" class="banner-img">
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="home-container">
+    <!-- Columna izquierda - Evento fijo (siempre evento1) -->
+    <div class="left-column">
+      <div class="evento-destacado" *ngIf="eventoFijo">
+        <div class="destacado-imagen">
+          <img [src]="eventoFijo.imagen" [alt]="eventoFijo.nombre">
+          <div class="destacado-fecha">{{ eventoFijo.fecha }}</div>
+          <a href="#" class="destacado-comprar" (click)="$event.preventDefault(); onComprarClick(eventoFijo)">COMPRAR</a>
+          <div class="destacado-nombre">{{ eventoFijo.nombre }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna derecha - Grid de eventos -->
+    <div class="right-column">
+      <div class="eventos-grid">
+        <app-evento-card 
+          *ngFor="let evento of eventos" 
+          [evento]="evento"
+          (cardClick)="onEventoClick(evento)">
+        </app-evento-card>
+      </div>
+    </div>
+  </div>
+</div>

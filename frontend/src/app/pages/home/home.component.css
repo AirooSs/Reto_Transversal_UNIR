@@ -1,0 +1,172 @@
+/* src/app/pages/home/home.component.css */
+.banner-container {
+  width: 100%;
+  height: auto;
+  margin-bottom: 0;
+  line-height: 0;
+  margin-bottom: 1rem;
+}
+
+.banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 75vh;
+}
+
+.home-page {
+  width: 100%;
+  margin: 0; 
+  height: auto;  /* Asegurar que no tenga altura fija */
+  min-height: auto;
+}
+
+.home-container {
+  display: flex;
+  gap: 1.1rem;
+  padding: 0.8rem 5% 0 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+
+.left-column {
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.evento-destacado {
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.destacado-imagen {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 500px;
+}
+
+.destacado-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.destacado-fecha {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 0.7rem;
+  font-weight: normal;
+  z-index: 2;
+}
+
+.destacado-comprar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #FF8181;
+  color: black;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-family: 'Arial', sans-serif;
+  font-weight: normal;
+  font-size: 0.65rem;
+  transition: all 0.3s;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.destacado-comprar:hover {
+  background-color: #e06e6e;
+}
+
+.destacado-nombre {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, #000000b4, rgba(0, 0, 0, 0.249), transparent);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 4rem;
+  font-weight: normal;
+  color: rgb(243, 243, 243);
+  text-transform: uppercase;
+  padding: 3rem 0 0rem 0;
+  z-index: 2;
+  letter-spacing: 2px;
+  line-height: 1;
+  text-align: center;
+}
+
+.right-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.eventos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  flex: 1;
+    margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.evento-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .home-container {
+    flex-direction: column;
+  }
+  
+  .left-column {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto 1.5rem auto;
+  }
+  
+  .destacado-imagen {
+    min-height: 400px;
+  }
+  
+  .right-column {
+    width: 100%;
+  }
+  
+  .eventos-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+}
+
+/* Elimina el @media de 768px y 550px, o déjalos así */
+@media (max-width: 480px) {
+  .eventos-grid {
+    grid-template-columns: repeat(2, 1fr) !important;  /* Sigue siendo 2 columnas */
+    gap: 0.8rem !important;
+  }
+}

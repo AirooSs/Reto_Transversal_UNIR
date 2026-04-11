@@ -1,1 +1,9 @@
-<p>evento-card works!</p>
+<div class="evento-card" (click)="onCardClick()">
+  <div class="card-image">
+    <img [src]="evento.imagen" [alt]="evento.nombre">
+  </div>
+  <div class="card-info">
+    <h3 class="evento-nombre">{{ evento.nombre }}</h3>
+    <p class="evento-fecha">{{ evento.fecha }}</p>
+  </div>
+</div>

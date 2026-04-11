@@ -1,1 +1,44 @@
-<p>navbar works!</p>
+<!-- src/app/components/navbar/navbar.component.html -->
+<nav class="navbar">
+  <div class="navbar-container">
+    <!-- Logo -->
+    <div class="navbar-logo">
+      <img src="/logo.png" alt="Logo" class="logo-img">
+    </div>
+
+    <!-- Menú principal -->
+    <ul class="navbar-menu">
+      <li><a routerLink="/usuarios">USUARIOS</a></li>
+      <li><a routerLink="/perfiles">PERFILES</a></li>
+      <li><a routerLink="/conciertos">CONCIERTOS</a></li>
+      <li class="dropdown" (click)="toggleEventos()">
+        <a href="javascript:void(0)">EVENTOS ▼</a>
+        <ul class="dropdown-menu" *ngIf="isEventosOpen">
+          <li><a routerLink="/eventos/proximos">Próximos</a></li>
+          <li><a routerLink="/eventos/pasados">Pasados</a></li>
+          <li><a routerLink="/eventos/destacados">Destacados</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Menú de usuario (extremo derecho) -->
+    <div class="navbar-user">
+      <!-- Usuario NO logueado -->
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="user-link">Iniciar sesión</a>
+        <a routerLink="/registro" class="user-link">Registrarse</a>
+      </ng-container>
+
+      <!-- Usuario logueado -->
+      <ng-container *ngIf="isLoggedIn">
+        <a href="javascript:void(0)" (click)="logout()" class="user-link">Cerrar sesión</a>
+        <button class="icon-btn">
+          🔔
+        </button>
+        <div class="user-avatar">
+          <img src="/default-avatar.png" alt="User Avatar" class="avatar-img">
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</nav>
