@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ModalService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,22 +13,23 @@ import { CommonModule } from '@angular/common';
 })
 export class NavbarComponent {
   isEventosOpen = false;
-  isLoggedIn = false; // Cambiar a true cuando el usuario inicie sesión
+  isLoggedIn = false;
+
+  constructor(private modalService: ModalService) {}
 
   toggleEventos() {
     this.isEventosOpen = !this.isEventosOpen;
   }
 
-  // Métodos para acciones del menú usuario
-  login() {
-    // Lógica de inicio de sesión
+  abrirLogin() {
+    this.modalService.openLoginModal();
   }
 
-  register() {
-    // Lógica de registro
+  abrirRegistro() {
+    this.modalService.openRegistroModal();  // ← Cambia a registro
   }
 
   logout() {
-    // Lógica de cierre de sesión
+    this.isLoggedIn = false;
   }
 }

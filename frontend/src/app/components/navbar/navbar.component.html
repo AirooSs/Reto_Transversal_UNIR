@@ -25,8 +25,8 @@
     <div class="navbar-user">
       <!-- Usuario NO logueado -->
       <ng-container *ngIf="!isLoggedIn">
-        <a routerLink="/login" class="user-link">Iniciar sesión</a>
-        <a routerLink="/registro" class="user-link">Registrarse</a>
+        <a href="javascript:void(0)" (click)="abrirLogin()" class="user-link">Iniciar sesión</a>
+        <a href="javascript:void(0)" (click)="abrirRegistro()" class="user-link">Registrarse</a>  
       </ng-container>
 
       <!-- Usuario logueado -->
