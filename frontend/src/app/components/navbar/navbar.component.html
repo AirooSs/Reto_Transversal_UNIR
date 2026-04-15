@@ -3,7 +3,9 @@
   <div class="navbar-container">
     <!-- Logo -->
     <div class="navbar-logo">
-      <img src="/logo.png" alt="Logo" class="logo-img">
+      <a routerLink="/">
+        <img src="/logo.png" alt="Logo" class="logo-img">
+      </a>
     </div>
 
     <!-- Menú principal -->
@@ -26,7 +28,7 @@
       <!-- Usuario NO logueado -->
       <ng-container *ngIf="!isLoggedIn">
         <a href="javascript:void(0)" (click)="abrirLogin()" class="user-link">Iniciar sesión</a>
-        <a href="javascript:void(0)" (click)="abrirRegistro()" class="user-link">Registrarse</a>  
+        <a href="javascript:void(0)" (click)="abrirRegistro()" class="user-link">Registrarse</a>
       </ng-container>
 
       <!-- Usuario logueado -->
