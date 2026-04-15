@@ -143,3 +143,6 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2026-03-21 19:01:08
+
+-- Añadir campo imagen_url para insertar imagenes en el evento.
+ALTER TABLE eventos ADD COLUMN imagen_url VARCHAR(500);

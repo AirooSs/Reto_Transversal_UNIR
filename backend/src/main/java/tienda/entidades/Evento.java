@@ -32,6 +32,9 @@ public class Evento implements Serializable {
 
 	private Integer plazasDisponibles;
 
+	@Column(name = "imagen_url")
+	private String imagenUrl;
+
 	@Enumerated(EnumType.STRING)
 	private EstadoEvento estado;
 
@@ -47,8 +50,8 @@ public class Evento implements Serializable {
 	}
 
 	public Evento(Long id, String titulo, String descripcion, LocalDateTime fecha, int duracion, double precio,
-			Integer aforoMaximo, Integer plazasDisponibles, EstadoEvento estado, List<Reserva> reservas,
-			TipoEvento tipoEvento) {
+			Integer aforoMaximo, Integer plazasDisponibles, String imagenUrl, EstadoEvento estado,
+			List<Reserva> reservas, TipoEvento tipoEvento) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -58,6 +61,7 @@ public class Evento implements Serializable {
 		this.precio = precio;
 		this.aforoMaximo = aforoMaximo;
 		this.plazasDisponibles = plazasDisponibles;
+		this.imagenUrl = imagenUrl;  
 		this.estado = estado;
 		this.reservas = reservas;
 		this.tipoEvento = tipoEvento;
@@ -127,6 +131,14 @@ public class Evento implements Serializable {
 		this.plazasDisponibles = plazasDisponibles;
 	}
 
+	public String getImagenUrl() { 
+		return imagenUrl; 
+	}       
+
+	public void setImagenUrl(String imagenUrl) { 
+		this.imagenUrl = imagenUrl; 
+	}
+
 	public EstadoEvento getEstado() {
 		return estado;
 	}
@@ -159,8 +171,8 @@ public class Evento implements Serializable {
 	public String toString() {
 		return "Evento [id=" + id + ", titulo=" + titulo + ", descripcion=" + descripcion + ", fecha=" + fecha
 				+ ", duracion=" + duracion + ", precio=" + precio + ", aforoMaximo=" + aforoMaximo
-				+ ", plazasDisponibles=" + plazasDisponibles + ", estado=" + estado + ", reservas=" + reservas
-				+ ", tipoEvento=" + tipoEvento + "]";
+				+ ", plazasDisponibles=" + plazasDisponibles + ", imagenUrl=" + imagenUrl
+				+ ", estado=" + estado + ", reservas=" + reservas + ", tipoEvento=" + tipoEvento + "]";
 	}
 
 	@Override
