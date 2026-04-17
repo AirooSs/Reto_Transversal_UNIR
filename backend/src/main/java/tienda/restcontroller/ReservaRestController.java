@@ -2,48 +2,45 @@ package tienda.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import tienda.entidades.Reserva;
+import org.springframework.web.bind.annotation.*;
 import tienda.service.ReservaService;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping("/reserva")
+@RequestMapping("/reservas")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ReservaRestController {
 
 	@Autowired
 	private ReservaService reservaService;
 
 	@GetMapping("/")
-	ResponseEntity<?> todos() {
+	public ResponseEntity<?> todas() {
 		return ResponseEntity.ok(reservaService.findAll());
 	}
 
-	@GetMapping("/{id}")
-	ResponseEntity<?> uno(@PathVariable Long id) {
-		return ResponseEntity.ok(reservaService.findById(id));
+	@GetMapping("/usuario/{usuarioId}/activas")
+	public ResponseEntity<?> activasPorUsuario(@PathVariable Long usuarioId) {
+		return ResponseEntity.ok(reservaService.findReservasActivasByUsuario(usuarioId));
 	}
 
-	@PostMapping("/")
-	ResponseEntity<?> insertOne(@RequestBody Reserva reserva) {
-		return ResponseEntity.ok(reservaService.insertOne(reserva));
+	@PostMapping("/crear")
+	public ResponseEntity<?> crearReserva(@RequestBody Map<String, Object> body) {
+		Long usuarioId = Long.valueOf(body.get("usuarioId").toString());
+		Long eventoId = Long.valueOf(body.get("eventoId").toString());
+		Integer cantidad = Integer.valueOf(body.get("cantidad").toString());
+
+		Map<String, Object> resultado = reservaService.crearReserva(usuarioId, eventoId, cantidad);
+		if ((boolean) resultado.get("ok")) return ResponseEntity.ok(resultado);
+		return ResponseEntity.badRequest().body(resultado);
 	}
 
-	@PutMapping("/")
-	ResponseEntity<?> updateOne(@RequestBody Reserva reserva) {
-		return ResponseEntity.ok(reservaService.updateOne(reserva));
-	}
-
-	@DeleteMapping("{id}")
-	ResponseEntity<?> deleteOne(@PathVariable Long id) {
-		reservaService.deleteOne(id);
-		return ResponseEntity.noContent().build();
+	@DeleteMapping("/cancelar/{reservaId}/usuario/{usuarioId}")
+	public ResponseEntity<?> cancelarReserva(@PathVariable Long reservaId, @PathVariable Long usuarioId) {
+		int resultado = reservaService.cancelarReserva(reservaId, usuarioId);
+		if (resultado == 0) return ResponseEntity.notFound().build();
+		if (resultado == -1) return ResponseEntity.status(403).body(Map.of("mensaje", "No puedes cancelar una reserva que no es tuya."));
+		return ResponseEntity.ok(Map.of("mensaje", "Reserva cancelada correctamente."));
 	}
 }

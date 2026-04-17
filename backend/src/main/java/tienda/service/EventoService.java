@@ -1,11 +1,11 @@
 package tienda.service;
 
+import tienda.entidades.Evento;
+import tienda.enums.EstadoEvento;
+
 import java.util.List;
 
-import tienda.entidades.Evento;
-
 public interface EventoService {
-	// CRUD BASICO
 
 	List<Evento> findAll();
 
@@ -16,4 +16,8 @@ public interface EventoService {
 	Evento updateOne(Evento evento);
 
 	int deleteOne(Long id);
+
+	List<Evento> findByEstado(EstadoEvento estado);
+
+	List<Evento> findDestacados();
 }
