@@ -1,12 +1,10 @@
 package tienda.service;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tienda.entidades.Evento;
-import tienda.enums.EstadoEvento;
 import tienda.repository.EventoRepository;
-
-import java.util.List;
 
 @Service
 public class EventoServiceImpl implements EventoService {
@@ -26,8 +24,6 @@ public class EventoServiceImpl implements EventoService {
 
 	@Override
 	public Evento insertOne(Evento evento) {
-		if (evento.getEstado() == null) evento.setEstado(EstadoEvento.ACTIVO);
-		if (evento.getDestacado() == null) evento.setDestacado(false);
 		return eventoRepository.save(evento);
 	}
 
@@ -35,7 +31,8 @@ public class EventoServiceImpl implements EventoService {
 	public Evento updateOne(Evento evento) {
 		if (eventoRepository.existsById(evento.getId()))
 			return eventoRepository.save(evento);
-		return null;
+		else
+			return null;
 	}
 
 	@Override
@@ -45,11 +42,6 @@ public class EventoServiceImpl implements EventoService {
 			return 1;
 		}
 		return 0;
-	}
-
-	@Override
-	public List<Evento> findByEstado(EstadoEvento estado) {
-		return eventoRepository.findByEstado(estado);
 	}
 
 	@Override
