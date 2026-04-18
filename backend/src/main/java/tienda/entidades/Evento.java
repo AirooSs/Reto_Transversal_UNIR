@@ -28,10 +28,8 @@ public class Evento implements Serializable {
 
 	private double precio;
 
-	@Column(name = "aforo_maximo")
 	private Integer aforoMaximo;
 
-	@Column(name = "plazas_disponibles")
 	private Integer plazasDisponibles;
 
 	@Column(name = "imagen_url")
@@ -50,6 +48,24 @@ public class Evento implements Serializable {
 	private TipoEvento tipoEvento;
 
 	public Evento() {
+	}
+
+	public Evento(Long id, String titulo, String descripcion, LocalDateTime fecha, int duracion, double precio,
+			Integer aforoMaximo, Integer plazasDisponibles, String imagenUrl, Boolean destacado,
+			EstadoEvento estado, List<Reserva> reservas, TipoEvento tipoEvento) {
+		this.id = id;
+		this.titulo = titulo;
+		this.descripcion = descripcion;
+		this.fecha = fecha;
+		this.duracion = duracion;
+		this.precio = precio;
+		this.aforoMaximo = aforoMaximo;
+		this.plazasDisponibles = plazasDisponibles;
+		this.imagenUrl = imagenUrl;
+		this.destacado = destacado != null ? destacado : false;
+		this.estado = estado;
+		this.reservas = reservas;
+		this.tipoEvento = tipoEvento;
 	}
 
 	public Long getId() { return id; }

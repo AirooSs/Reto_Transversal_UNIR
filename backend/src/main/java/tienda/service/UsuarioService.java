@@ -1,18 +1,15 @@
 package tienda.service;
 
-import tienda.entidades.Usuario;
-
 import java.util.List;
 
+import tienda.entidades.Usuario;
+
 public interface UsuarioService {
+	// CRUD BASICO
 
 	List<Usuario> findAll();
 
 	Usuario findById(Long id);
-
-	Usuario findByEmail(String email);
-
-	boolean existsByEmail(String email);
 
 	Usuario insertOne(Usuario usuario);
 

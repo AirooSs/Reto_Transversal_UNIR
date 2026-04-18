@@ -1,19 +1,20 @@
 package tienda.service;
 
+import java.util.List;
+
 import tienda.entidades.Reserva;
 
-import java.util.List;
-import java.util.Map;
-
 public interface ReservaService {
+
+	// CRUD BASICO
 
 	List<Reserva> findAll();
 
 	Reserva findById(Long id);
 
-	Map<String, Object> crearReserva(Long usuarioId, Long eventoId, Integer cantidad);
+	Reserva insertOne(Reserva reserva);
 
-	int cancelarReserva(Long reservaId, Long usuarioId);
+	Reserva updateOne(Reserva reserva);
 
-	List<Reserva> findReservasActivasByUsuario(Long usuarioId);
+	int deleteOne(Long id);
 }
