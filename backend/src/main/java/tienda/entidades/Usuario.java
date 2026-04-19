@@ -2,14 +2,11 @@ package tienda.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import tienda.enums.Roles;
 
 import java.io.Serializable;
 import java.util.List;
@@ -19,7 +16,6 @@ import java.util.Objects;
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
 
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,23 +24,23 @@ public class Usuario implements Serializable {
 
 	private String nombre;
 
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String email;
 
+	@Column(nullable = false)
 	private String password;
 
-	@Enumerated(EnumType.STRING)
-	private Roles rol;
+	// ROLE_ADMON o ROLE_CLIENTE para seguridad
+	@Column(nullable = false)
+	private String rol;
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Reserva> reservas;
 
 	public Usuario() {
-		
 	}
 
-	public Usuario(Long id, String nombre, String email, String password, Roles rol, List<Reserva> reservas) {
-		super();
+	public Usuario(Long id, String nombre, String email, String password, String rol, List<Reserva> reservas) {
 		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
@@ -85,11 +81,11 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	public Roles getRol() {
+	public String getRol() {
 		return rol;
 	}
 
-	public void setRol(Roles rol) {
+	public void setRol(String rol) {
 		this.rol = rol;
 	}
 
@@ -99,16 +95,6 @@ public class Usuario implements Serializable {
 
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password + ", rol="
-				+ rol + ", reservas=" + reservas + "]";
 	}
 
 	@Override
