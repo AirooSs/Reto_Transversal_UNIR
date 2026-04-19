@@ -7,13 +7,49 @@
 
     <section class="info-content-side">
         <nav>
-            <a routerLink="/" class="back-link">← VOLVER A TOURS</a>
+            <a routerLink="/" class="back-link">← VOLVER A EVENTOS</a>
         </nav>
 
         <header class="artist-header">
             <h1 class="artist-name-title">{{ artistaActual.nombre || 'Cargando Artista...' }}</h1>
         </header>
 
+        <!-- FECHA DESTACADA -->
+        <div class="fecha-destacada">
+            <span class="fecha-dia">{{ artistaActual.dia }}</span>
+            <span class="fecha-mes">{{ artistaActual.mes }}</span>
+        </div>
+
+        <!-- Descripción del evento -->
+        <div class="description-section">
+            <p class="description-text">{{ artistaActual.descripcion }}</p>
+        </div>
+
+        <!-- CARACTERÍSTICAS DEL EVENTO -->
+        <div class="caracteristicas-section">
+            <div class="caracteristica-item">
+                <span class="caracteristica-label">Fecha</span>
+                <span class="caracteristica-valor">{{ artistaActual.fecha }}</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-label">Duración</span>
+                <span class="caracteristica-valor">{{ artistaActual.duracion }} minutos</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-label">Precio</span>
+                <span class="caracteristica-valor">{{ artistaActual.precio | currency:'EUR':'symbol':'1.0-0' }}</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-label">Plazas</span>
+                <span class="caracteristica-valor">{{ artistaActual.plazasDisponibles }} / {{ artistaActual.aforoMaximo }}</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-label">Género</span>
+                <span class="caracteristica-valor">{{ artistaActual.genero }}</span>
+            </div>
+        </div>
+
+        <!-- SECCIÓN PRÓXIMOS CONCIERTOS -->
         <div class="concerts-section">
             <div class="section-header">
                 <h3>Próximos conciertos</h3>

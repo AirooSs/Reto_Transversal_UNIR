@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { EventoCardComponent, Evento } from '../../components/evento-card/evento-card.component';
+import { EventoService, EventoBackend } from '../../services/evento.service';
 
 @Component({
   selector: 'app-home',
@@ -13,73 +14,82 @@ import { EventoCardComponent, Evento } from '../../components/evento-card/evento
 })
 export class HomeComponent implements OnInit {
   eventos: Evento[] = [];
-  eventoFijo: Evento | null = null; // Evento fijo para la imagen izquierda
+  eventoFijo: Evento | null = null;
+  loading = true;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private eventoService: EventoService
+  ) {}
 
   ngOnInit() {
-    // Datos de ejemplo mientras no hay backend
-    this.eventos = [
-      {
-        id: 2,
-        nombre: 'MARO',
-        artista: 'artista',
-        fecha: '22 MAYO 2026',
-        imagen: '/assets/evento2.png'
-      },
-      {
-        id: 3,
-        nombre: 'TAME IMPALA',
-        artista: 'artista',
-        fecha: '5 JUNIO 2026',
-        imagen: '/assets/evento3.png'
-      },
-      {
-        id: 4,
-        nombre: 'PLK',
-        artista: 'artista',
-        fecha: '12 JUNIO 2026',
-        imagen: '/assets/evento4.png'
-      },
-      {
-        id: 5,
-        nombre: 'BAD GYAL',
-        artista: 'artista',
-        fecha: '20 JUNIO 2026',
-        imagen: '/assets/evento5.png'
-      },
-      {
-        id: 6,
-        nombre: 'CAROLINE',
-        artista: 'GUITARRA FLAMENCA',
-        fecha: '28 JUNIO 2026',
-        imagen: '/assets/evento6.png'
-      },
-      {
-        id: 7,
-        nombre: 'O´FLYNN',
-        artista: 'artista',
-        fecha: '5 JULIO 2026',
-        imagen: '/assets/evento7.png'
-      }
-    ];
-
-    // Evento fijo para la imagen izquierda (siempre evento1)
-    this.eventoFijo = {
-      id: 1,
-      nombre: 'ROSALÍA',
-      artista: 'ROSALÍA',
-      fecha: '15 MAYO 2026',
-      imagen: '/assets/evento1.png'
-    };
+    this.cargarEventos();
   }
 
-  // Navegar a evento-detalle al hacer click en la tarjeta
+  cargarEventos(): void {
+    this.eventoService.getEventos().subscribe({
+      next: (data: EventoBackend[]) => {
+        // El evento destacado (id 1 = Rosalía)
+        const destacado = data.find(e => e.id === 1);
+        if (destacado) {
+          this.eventoFijo = {
+            id: destacado.id,
+            nombre: destacado.titulo,
+            titulo: destacado.titulo,
+            artista: destacado.titulo,
+            fecha: this.formatearFecha(destacado.fecha),
+            imagen: this.getImagenUrl(destacado.imagenUrl),
+            imagenUrl: destacado.imagenUrl,
+            precio: destacado.precio,
+            descripcion: destacado.descripcion
+          };
+        }
+        
+        // Transformar los datos del backend al formato Evento
+        // Filtrar para que el evento destacado (id 1) NO aparezca en el grid
+        this.eventos = data
+          .filter(evento => evento.id !== 1)  // ← Excluir el evento destacado
+          .map(evento => ({
+            id: evento.id,
+            nombre: evento.titulo,
+            titulo: evento.titulo,
+            artista: evento.titulo,
+            fecha: this.formatearFecha(evento.fecha),
+            imagen: this.getImagenUrl(evento.imagenUrl),
+            imagenUrl: evento.imagenUrl,
+            precio: evento.precio,
+            descripcion: evento.descripcion
+          }));
+        
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar eventos:', err);
+        this.loading = false;
+      }
+    });
+  }
+
+  formatearFecha(fecha: string): string {
+    const date = new Date(fecha);
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }).toUpperCase();
+  }
+
+  getImagenUrl(url: string): string {
+    if (url.startsWith('http')) {
+      return url;
+    }
+    return `http://localhost:9008${url}`;
+  }
+
   onEventoClick(evento: Evento) {
     this.router.navigate(['/evento-detalle', evento.id]);
   }
 
-  // Navegar a evento-detalle al hacer click en "Comprar entradas"
   onComprarClick(evento: Evento) {
     this.router.navigate(['/evento-detalle', evento.id]);
   }

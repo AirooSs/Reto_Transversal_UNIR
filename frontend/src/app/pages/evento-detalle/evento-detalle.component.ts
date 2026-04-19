@@ -24,18 +24,26 @@ export class EventoDetalleComponent implements OnInit {
     if (id) {
       this.eventoService.getEventoById(id).subscribe({
         next: (data: any) => {
-          this.artistaActual = data;
-          this.artistaActual.nombre = data.titulo || data.nombre;
-          
-          // Si el backend devuelve el artista pero sin conciertos, 
-          // le asignamos los suyos específicos.
-          if (!this.artistaActual.conciertos || this.artistaActual.conciertos.length === 0) {
-            this.artistaActual.conciertos = this.obtenerConciertosPorId(id);
-          }
+          const fechaObj = new Date(data.fecha);
+          this.artistaActual = {
+            id: data.id,
+            nombre: data.titulo,
+            imagen: `http://localhost:9008${data.imagenUrl}`,
+            dia: fechaObj.getDate().toString(),
+            mes: fechaObj.toLocaleDateString('es-ES', { month: 'long' }).toUpperCase(),
+            fecha: this.formatearFecha(data.fecha),
+            descripcion: data.descripcion,
+            duracion: data.duracion,
+            precio: data.precio,
+            plazasDisponibles: data.plazasDisponibles,
+            aforoMaximo: data.aforoMaximo,
+            genero: data.tipoEvento?.nombre,
+            conciertos: this.obtenerConciertosPorId(id)
+          };
         },
         error: (err) => {
-          console.warn("Backend no disponible, usando datos locales para ID:", id);
-          
+          console.error('Error al cargar evento:', err);
+          // Fallback con datos mock
           const nombres: any = {
             '1': 'ROSALÍA',
             '2': 'MARO',
@@ -45,11 +53,20 @@ export class EventoDetalleComponent implements OnInit {
             '6': 'CAROLINE',
             '7': 'O´FLYNN'
           };
-
+          const fechaObj = new Date();
           this.artistaActual = {
             id: id,
             nombre: nombres[id] || 'Artista ' + id,
-            imagen: `assets/evento${id}.png`, 
+            imagen: `assets/evento${id}.png`,
+            dia: fechaObj.getDate().toString(),
+            mes: fechaObj.toLocaleDateString('es-ES', { month: 'long' }).toUpperCase(),
+            fecha: this.formatearFecha(fechaObj.toISOString()),
+            descripcion: 'Descripción no disponible',
+            duracion: 90,
+            precio: 30,
+            plazasDisponibles: 100,
+            aforoMaximo: 100,
+            genero: 'Pop',
             conciertos: this.obtenerConciertosPorId(id)
           };
         }
@@ -57,7 +74,15 @@ export class EventoDetalleComponent implements OnInit {
     }
   }
 
-  // función para diversificar las giras según el ID del artista
+  formatearFecha(fecha: string): string {
+    const date = new Date(fecha);
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }).toUpperCase();
+  }
+
   obtenerConciertosPorId(id: string): any[] {
     const baseDeConciertos: any = {
       '1': [ // ROSALÍA
@@ -76,7 +101,6 @@ export class EventoDetalleComponent implements OnInit {
       ]
     };
 
-    // Si el ID no está en la lista, devolvemos una fecha genérica por defecto
     return baseDeConciertos[id] || [
       { dia: '10', mes: 'OCT 2026', estadio: 'Estadio Olímpico', ciudad: 'SEVILLA', soldOut: false }
     ];

@@ -1,3 +1,4 @@
+/* ===== ESTILOS ORIGINALES DE TU COMPAÑERA (DOS COLUMNAS) ===== */
 .artist-detail-container {
   display: flex;
   width: 100%;
@@ -87,7 +88,7 @@
 .back-link {
   text-decoration: none;
   color: #888;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   margin-bottom: 1.5rem;
   display: inline-block;
   font-weight: 600;
@@ -95,9 +96,9 @@
 }
 
 .artist-name-title {
-  font-size: 5.5rem; 
+  font-size: 3.5rem;
   font-weight: 300; 
-  margin: 0 0 2rem 0;
+  margin: 0 0 1.5rem 0;
   letter-spacing: -2px;
   text-transform: uppercase;
   color: #000;
@@ -112,14 +113,14 @@
 }
 
 .section-header h3 {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: 500;
   margin: 0;
 }
 
 .ver-todos-link {
   color: #ff4d4d; 
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: bold;
   cursor: pointer;
   text-transform: uppercase;
@@ -138,7 +139,7 @@
 
 .day-red {
   color: #ff4d4d; 
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
   display: block;
   line-height: 1;
@@ -146,7 +147,7 @@
 
 .month-gray {
   color: #888;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -156,7 +157,7 @@
 }
 
 .venue-name {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   display: block;
 }
@@ -164,10 +165,9 @@
 .city-name {
   color: #666;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
 }
-
 
 .status-col {
   flex: 1;
@@ -182,13 +182,11 @@
   align-items: center;
   justify-content: center;
   white-space: nowrap; 
-  
-  padding: 6px 20px;
-  min-width: 140px;
-  height: 32px;     
-  
+  padding: 4px 15px;
+  min-width: 110px;
+  height: 28px;     
   border-radius: 50px;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -209,10 +207,10 @@
   border: 1px solid #333;
   background: transparent;
   color: black;
-  padding: 10px 35px;
+  padding: 8px 25px;
   border-radius: 50px; 
   font-weight: 800;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-transform: uppercase;
@@ -230,15 +228,80 @@
   cursor: not-allowed;
 }
 
-.back-link {
-  text-decoration: none;
-  color: #ffb3b3;
-  font-size: 0.8rem;
-  font-weight: bold;
-  margin-bottom: 2rem;
-  display: inline-block;
-}
 .action-col {
   min-width: 150px;
   text-align: right;
+}
+
+/* ===== NUEVOS ESTILOS (FECHA Y DESCRIPCIÓN) ===== */
+.fecha-destacada {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem 0;
+  border-bottom: 2px solid #ff4d4d;
+  padding-bottom: 0.5rem;
+  align-self: flex-start;
+}
+
+.fecha-dia {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ff4d4d;
+  line-height: 1;
+}
+
+.fecha-mes {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.description-section {
+  margin: 0 0 1.5rem 0;
+}
+
+.description-text {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #444;
+  margin: 0;
+  text-align: justify;
+}
+
+/* ===== CARACTERÍSTICAS DEL EVENTO ===== */
+.caracteristicas-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  background: #f8f8f8;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  margin: 0 0 1.5rem 0;
+}
+
+.caracteristica-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.caracteristica-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.75rem;
+}
+
+.caracteristica-label::after {
+  content: ':';
+  margin-left: 0.15rem;
+  margin-right: 0.25rem;
+}
+
+.caracteristica-valor {
+  color: #333;
+  font-size: 0.8rem;
+  font-weight: 500;
 }

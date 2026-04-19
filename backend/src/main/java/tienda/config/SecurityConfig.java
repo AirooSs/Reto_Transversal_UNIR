@@ -40,6 +40,10 @@ public class SecurityConfig {
 				// Invitados pueden ver eventos (GET)
 				.requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
 				.requestMatchers(HttpMethod.GET, "/tipoevento/**").permitAll()
+				
+				// RECURSOS ESTÁTICOS (imágenes)
+				.requestMatchers("/img/**").permitAll()
+				.requestMatchers("/static/**").permitAll()
 
 				// Solo ROLE_ADMON puede crear/editar/borrar eventos y tipos
 				.requestMatchers(HttpMethod.POST, "/eventos/**").hasRole("ADMON")

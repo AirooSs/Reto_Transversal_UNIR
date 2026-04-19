@@ -1,21 +1,40 @@
+// src/app/services/evento.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Evento } from '../components/evento-card/evento-card.component';
+
+export interface EventoBackend {
+  id: number;
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  duracion: number;
+  precio: number;
+  aforoMaximo: number;
+  plazasDisponibles: number;
+  imagenUrl: string;
+  destacado: boolean;
+  estado: string;
+  tipoEvento: {
+    id: number;
+    nombre: string;
+    descripcion: string;
+  };
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventoService {
-  private apiUrl = 'http://localhost:8086/eventos'; 
+  private apiUrl = 'http://localhost:9008/eventos/';
 
   constructor(private http: HttpClient) { }
 
- 
-  getEventos(): Observable<Evento[]> {
-    return this.http.get<Evento[]>(this.apiUrl);
+  getEventos(): Observable<EventoBackend[]> {
+    return this.http.get<EventoBackend[]>(this.apiUrl);
   }
-  getEventoById(id: string): Observable<Evento> {
-    return this.http.get<Evento>(`${this.apiUrl}/${id}`);
+
+  getEventoById(id: string): Observable<EventoBackend> {
+    return this.http.get<EventoBackend>(`${this.apiUrl}${id}`);
   }
 }

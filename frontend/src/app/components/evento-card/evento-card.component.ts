@@ -9,7 +9,10 @@ export interface Evento {
   artista: string;
   fecha: string;
   imagen: string;
+  precio?: number;
   descripcion?: string;
+  titulo?: string;      // Para compatibilidad
+  imagenUrl?: string;   // Para compatibilidad
 }
 
 @Component({
@@ -22,6 +25,17 @@ export interface Evento {
 export class EventoCardComponent {
   @Input() evento!: Evento;
   @Output() cardClick = new EventEmitter<Evento>();
+
+  getImagenUrl(url: string | undefined): string {
+    if (!url) return '/assets/placeholder.png';
+    if (url.startsWith('http')) return url;
+    if (url.startsWith('/assets')) return url;
+    return `http://localhost:9008${url}`;
+  }
+
+  getNombre(): string {
+    return this.evento.titulo || this.evento.nombre || 'Artista';
+  }
 
   onCardClick() {
     this.cardClick.emit(this.evento);
