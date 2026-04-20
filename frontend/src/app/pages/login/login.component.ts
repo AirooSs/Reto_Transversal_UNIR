@@ -2,6 +2,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,18 +14,42 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   @Output() close = new EventEmitter<void>();
-  
+
   email: string = '';
   password: string = '';
+  errorMensaje: string = '';
+  cargando: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   cerrarModal() {
     this.close.emit();
   }
 
   onSubmit() {
-    console.log('Login - Email:', this.email);
-    console.log('Login - Password:', this.password);
-    this.cerrarModal();
+    if (!this.email || !this.password) {
+      this.errorMensaje = 'Por favor rellena todos los campos';
+      return;
+    }
+
+    this.cargando = true;
+    this.errorMensaje = '';
+
+    this.authService.login(this.email, this.password).subscribe({
+      next: (res) => {
+        this.cargando = false;
+        this.cerrarModal();
+        if (res.rol === 'ROLE_ADMON') {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      },
+      error: () => {
+        this.cargando = false;
+        this.errorMensaje = 'Email o contraseña incorrectos';
+      }
+    });
   }
 
   recuperarPassword() {
