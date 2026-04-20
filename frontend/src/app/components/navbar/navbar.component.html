@@ -26,17 +26,15 @@
     <!-- Menú de usuario (extremo derecho) -->
     <div class="navbar-user">
       <!-- Usuario NO logueado -->
-      <ng-container *ngIf="!isLoggedIn">
+      <ng-container *ngIf="!authService.isLoggedIn()">
         <a href="javascript:void(0)" (click)="abrirLogin()" class="user-link">Iniciar sesión</a>
         <a href="javascript:void(0)" (click)="abrirRegistro()" class="user-link">Registrarse</a>
       </ng-container>
 
       <!-- Usuario logueado -->
-      <ng-container *ngIf="isLoggedIn">
+      <ng-container *ngIf="authService.isLoggedIn()">
+        <span class="user-nombre">{{ getNombre() }}</span>
         <a href="javascript:void(0)" (click)="logout()" class="user-link">Cerrar sesión</a>
-        <button class="icon-btn">
-          🔔
-        </button>
         <div class="user-avatar">
           <img src="/default-avatar.png" alt="User Avatar" class="avatar-img">
         </div>

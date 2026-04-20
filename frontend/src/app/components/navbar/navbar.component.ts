@@ -1,8 +1,9 @@
 // src/app/components/navbar/navbar.component.ts
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ModalService } from '../../services/modal.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,9 +14,12 @@ import { ModalService } from '../../services/modal.service';
 })
 export class NavbarComponent {
   isEventosOpen = false;
-  isLoggedIn = false;
 
-  constructor(private modalService: ModalService) {}
+  constructor(
+    private modalService: ModalService,
+    public authService: AuthService,
+    private router: Router
+  ) { }
 
   toggleEventos() {
     this.isEventosOpen = !this.isEventosOpen;
@@ -26,10 +30,15 @@ export class NavbarComponent {
   }
 
   abrirRegistro() {
-    this.modalService.openRegistroModal();  // ← Cambia a registro
+    this.modalService.openRegistroModal();
   }
 
   logout() {
-    this.isLoggedIn = false;
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  getNombre(): string {
+    return this.authService.getUsuario()?.nombre ?? '';
   }
 }
