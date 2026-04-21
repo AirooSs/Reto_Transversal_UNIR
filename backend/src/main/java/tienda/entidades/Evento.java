@@ -20,6 +20,10 @@ public class Evento implements Serializable {
 
 	private String titulo;
 
+	private String artista;
+
+	private String localidad;
+
 	private String descripcion;
 
 	private LocalDateTime fecha;
@@ -50,11 +54,13 @@ public class Evento implements Serializable {
 	public Evento() {
 	}
 
-	public Evento(Long id, String titulo, String descripcion, LocalDateTime fecha, int duracion, double precio,
-			Integer aforoMaximo, Integer plazasDisponibles, String imagenUrl, Boolean destacado,
-			EstadoEvento estado, List<Reserva> reservas, TipoEvento tipoEvento) {
+	public Evento(Long id, String titulo, String artista, String localidad, String descripcion, LocalDateTime fecha,
+			int duracion, double precio, Integer aforoMaximo, Integer plazasDisponibles, String imagenUrl,
+			Boolean destacado, EstadoEvento estado, List<Reserva> reservas, TipoEvento tipoEvento) {
 		this.id = id;
 		this.titulo = titulo;
+		this.artista = artista;
+		this.localidad = localidad;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
 		this.duracion = duracion;
@@ -73,6 +79,12 @@ public class Evento implements Serializable {
 
 	public String getTitulo() { return titulo; }
 	public void setTitulo(String titulo) { this.titulo = titulo; }
+
+	public String getArtista() { return artista; }
+	public void setArtista(String artista) { this.artista = artista; }
+
+	public String getLocalidad() { return localidad; }
+	public void setLocalidad(String localidad) { this.localidad = localidad; }
 
 	public String getDescripcion() { return descripcion; }
 	public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
