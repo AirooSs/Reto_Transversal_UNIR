@@ -3,11 +3,14 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { EventoDetalleComponent } from './pages/evento-detalle/evento-detalle.component';
 import { authGuard, adminGuard } from './guards/auth.guard';
+import { ArtistasComponent } from './pages/artistas/artistas.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'evento-detalle/:id', component: EventoDetalleComponent },
+    { path: 'artistas', component: ArtistasComponent },
+    
 
     // Rutas protegidas para ROLE_CLIENTE y ROLE_ADMON
     {

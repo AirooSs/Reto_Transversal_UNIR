@@ -1,0 +1,49 @@
+<div class="artistas-page">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>Artistas</h1>
+    <div class="orden-buttons">
+      <button class="btn-orden" [class.active]="ordenAlfabetico" (click)="ordenarPorNombre()">
+        Ordenar por Nombre
+      </button>
+      <button class="btn-orden" [class.active]="!ordenAlfabetico" (click)="ordenarPorFecha()">
+        Ordenar por Próximos Conciertos
+      </button>
+    </div>
+  </div>
+
+  <!-- Tabla de artistas -->
+  <div class="artistas-table">
+    <!-- Cabecera -->
+    <div class="table-header">
+      <div class="col-avatar"></div>
+      <div class="col-nombre">Artistas</div>
+      <div class="col-eventos">Próximos conciertos</div>
+    </div>
+
+    <!-- Filas de artistas -->
+    <div class="table-body">
+      <div class="artista-row" *ngFor="let artista of artistas">
+        <div class="col-avatar">
+          <img [src]="artista.imagen" [alt]="artista.nombre" class="avatar-img">
+        </div>
+        <div class="col-nombre">
+          <h2 class="artista-nombre">{{ artista.nombre }}</h2>
+        </div>
+        <div class="col-eventos">
+          <div class="eventos-lista">
+            <span *ngFor="let evento of artista.eventos; let i = index" class="evento-link" (click)="irAEvento(evento.id)">
+              {{ evento.fechaFormateada }}
+              <span *ngIf="i < artista.eventos.length - 1" class="separador"> | </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensaje si no hay artistas -->
+  <div *ngIf="artistas.length === 0" class="no-artistas">
+    No hay artistas disponibles.
+  </div>
+</div>

@@ -304,3 +304,12 @@
   font-size: 0.8rem;
   font-weight: 500;
 }
+
+.concert-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.concert-row:hover {
+  background-color: #f9f9f9;
+}

@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 export interface EventoBackend {
   id: number;
   titulo: string;
+  artista: string;
+  localidad: string;
   descripcion: string;
   fecha: string;
   duracion: number;

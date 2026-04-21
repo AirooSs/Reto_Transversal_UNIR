@@ -1,7 +1,7 @@
 <div class="artist-detail-container" *ngIf="artistaActual">
 
     <section class="hero-image-side">
-        <img [src]="artistaActual.imagen || 'assets/evento' + artistaActual.id + '.png'" [alt]="artistaActual.nombre">
+        <img [src]="artistaActual.imagen" [alt]="artistaActual.nombre">
         <div class="overlay-gradient"></div>
     </section>
 
@@ -28,6 +28,14 @@
         <!-- CARACTERÍSTICAS DEL EVENTO -->
         <div class="caracteristicas-section">
             <div class="caracteristica-item">
+                <span class="caracteristica-label">Artista</span>
+                <span class="caracteristica-valor">{{ artistaActual.artista }}</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-label">Localidad</span>
+                <span class="caracteristica-valor">{{ artistaActual.localidad }}</span>
+            </div>
+            <div class="caracteristica-item">
                 <span class="caracteristica-label">Fecha</span>
                 <span class="caracteristica-valor">{{ artistaActual.fecha }}</span>
             </div>
@@ -49,14 +57,14 @@
             </div>
         </div>
 
-        <!-- SECCIÓN PRÓXIMOS CONCIERTOS -->
-        <div class="concerts-section">
+        <!-- SECCIÓN PRÓXIMOS CONCIERTOS (ahora con datos reales) -->
+        <div class="concerts-section" *ngIf="proximosEventos.length > 0">
             <div class="section-header">
-                <h3>Próximos conciertos</h3>
+                <h3>Próximos conciertos de {{ artistaActual.artista }}</h3>
                 <span class="ver-todos-link">VER TODOS</span>
             </div>
 
-            <div class="concert-row" *ngFor="let c of artistaActual.conciertos">
+            <div class="concert-row" *ngFor="let c of proximosEventos" (click)="irAEvento(c.id)" style="cursor: pointer;">
                 <div class="date-col">
                     <span class="day-red">{{ c.dia }}</span>
                     <span class="month-gray">{{ c.mes }}</span>
@@ -78,9 +86,14 @@
                     </button>
                 </div>
             </div>
+        </div>
 
-            <div *ngIf="artistaActual.conciertos?.length === 0" class="no-concerts">
-                No hay fechas confirmadas próximamente.
+        <div class="concerts-section" *ngIf="proximosEventos.length === 0 && artistaActual.artista">
+            <div class="section-header">
+                <h3>Próximos conciertos de {{ artistaActual.artista }}</h3>
+            </div>
+            <div class="no-concerts">
+                No hay más conciertos programados de este artista próximamente.
             </div>
         </div>
     </section>

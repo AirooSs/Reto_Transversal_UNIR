@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterModule } from '@angular/router';
-import { EventoService } from '../../services/evento.service';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { EventoService, EventoBackend } from '../../services/evento.service';
 
 @Component({
   selector: 'app-evento-detalle',
@@ -12,9 +12,11 @@ import { EventoService } from '../../services/evento.service';
 })
 export class EventoDetalleComponent implements OnInit {
   artistaActual: any = null;
+  proximosEventos: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private eventoService: EventoService
   ) { }
 
@@ -23,11 +25,13 @@ export class EventoDetalleComponent implements OnInit {
     
     if (id) {
       this.eventoService.getEventoById(id).subscribe({
-        next: (data: any) => {
+        next: (data: EventoBackend) => {
           const fechaObj = new Date(data.fecha);
           this.artistaActual = {
             id: data.id,
             nombre: data.titulo,
+            artista: data.artista,
+            localidad: data.localidad,
             imagen: `http://localhost:9008${data.imagenUrl}`,
             dia: fechaObj.getDate().toString(),
             mes: fechaObj.toLocaleDateString('es-ES', { month: 'long' }).toUpperCase(),
@@ -38,40 +42,40 @@ export class EventoDetalleComponent implements OnInit {
             plazasDisponibles: data.plazasDisponibles,
             aforoMaximo: data.aforoMaximo,
             genero: data.tipoEvento?.nombre,
-            conciertos: this.obtenerConciertosPorId(id)
+            imagenUrl: data.imagenUrl
           };
+          
+          // Cargar próximos eventos del mismo artista
+          this.cargarProximosEventos(data.artista, data.id);
         },
         error: (err) => {
           console.error('Error al cargar evento:', err);
-          // Fallback con datos mock
-          const nombres: any = {
-            '1': 'ROSALÍA',
-            '2': 'MARO',
-            '3': 'TAME IMPALA',
-            '4': 'PLK',
-            '5': 'BAD GYAL',
-            '6': 'CAROLINE',
-            '7': 'O´FLYNN'
-          };
-          const fechaObj = new Date();
-          this.artistaActual = {
-            id: id,
-            nombre: nombres[id] || 'Artista ' + id,
-            imagen: `assets/evento${id}.png`,
-            dia: fechaObj.getDate().toString(),
-            mes: fechaObj.toLocaleDateString('es-ES', { month: 'long' }).toUpperCase(),
-            fecha: this.formatearFecha(fechaObj.toISOString()),
-            descripcion: 'Descripción no disponible',
-            duracion: 90,
-            precio: 30,
-            plazasDisponibles: 100,
-            aforoMaximo: 100,
-            genero: 'Pop',
-            conciertos: this.obtenerConciertosPorId(id)
-          };
         }
       });
     }
+  }
+
+  cargarProximosEventos(artista: string, eventoActualId: number): void {
+    this.eventoService.getEventos().subscribe({
+      next: (data: EventoBackend[]) => {
+        // Filtrar eventos del mismo artista, excluyendo el actual y con fecha futura
+        const ahora = new Date();
+        this.proximosEventos = data
+          .filter(e => e.artista === artista && e.id !== eventoActualId && new Date(e.fecha) > ahora)
+          .map(e => ({
+            id: e.id,
+            dia: new Date(e.fecha).getDate().toString(),
+            mes: new Date(e.fecha).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' }).toUpperCase(),
+            estadio: e.localidad || 'Por confirmar',
+            ciudad: e.localidad || 'Por confirmar',
+            soldOut: e.plazasDisponibles === 0,
+            pocasEntradas: e.plazasDisponibles > 0 && e.plazasDisponibles < (e.aforoMaximo * 0.1)
+          }));
+      },
+      error: (err) => {
+        console.error('Error al cargar próximos eventos:', err);
+      }
+    });
   }
 
   formatearFecha(fecha: string): string {
@@ -83,26 +87,8 @@ export class EventoDetalleComponent implements OnInit {
     }).toUpperCase();
   }
 
-  obtenerConciertosPorId(id: string): any[] {
-    const baseDeConciertos: any = {
-      '1': [ // ROSALÍA
-        { dia: '15', mes: 'JUL 2026', estadio: 'Palau Sant Jordi', ciudad: 'BARCELONA', soldOut: true },
-        { dia: '08', mes: 'ABR 2026', estadio: 'FIBES', ciudad: 'SEVILLA, ESPAÑA', soldOut: false, pocasEntradas: true }
-      ],
-      '2': [ // MARO
-        { dia: '05', mes: 'SEP 2026', estadio: 'Teatro Circo Price', ciudad: 'MADRID', soldOut: false }
-      ],
-      '5': [ // BAD GYAL
-        { dia: '22', mes: 'AGO 2026', estadio: 'Recinto Ferial', ciudad: 'ALICANTE', soldOut: false },
-        { dia: '29', mes: 'AGO 2026', estadio: 'Marenostrum', ciudad: 'FUENGIROLA', soldOut: true }
-      ],
-      '6': [ // CAROLINE
-        { dia: '20', mes: 'JUN 2026', estadio: 'Recinto Ferial', ciudad: 'MADRID', soldOut: false }
-      ]
-    };
-
-    return baseDeConciertos[id] || [
-      { dia: '10', mes: 'OCT 2026', estadio: 'Estadio Olímpico', ciudad: 'SEVILLA', soldOut: false }
-    ];
+  irAEvento(id: number): void {
+    this.router.navigate(['/evento-detalle', id]);
+    window.scrollTo(0, 0);
   }
 }
