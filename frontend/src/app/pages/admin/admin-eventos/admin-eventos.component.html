@@ -1,0 +1,54 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1 class="admin-titulo">{{ tituloLista }}</h1>
+    <button class="btn-nuevo" (click)="nuevoEvento()">+ Nuevo Evento</button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="admin-loading">Cargando eventos...</div>
+
+  <!-- Sin eventos -->
+  <div *ngIf="!loading && eventos.length === 0" class="admin-empty">
+    No hay eventos en esta categoría.
+  </div>
+
+  <!-- Tabla de eventos -->
+  <div *ngIf="!loading && eventos.length > 0" class="tabla-container">
+    <table class="tabla-eventos">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Artista</th>
+          <th>Fecha</th>
+          <th>Precio/pna</th>
+          <th>Aforo</th>
+          <th>Tipo</th>
+          <th>Destacado</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evento of eventos">
+          <td>{{ evento.titulo }}</td>
+          <td>{{ evento.artista }}</td>
+          <td>{{ evento.fecha | date:'dd/MM/yyyy' }}</td>
+          <td>{{ evento.precio | currency:'EUR':'symbol':'1.0-0' }}</td>
+          <td>{{ evento.plazasDisponibles }} / {{ evento.aforoMaximo }}</td>
+          <td>{{ evento.tipoEvento.nombre }}</td>
+          <td>
+            <span [class]="evento.destacado ? 'badge-si' : 'badge-no'">
+              {{ evento.destacado ? 'Sí' : 'No' }}
+            </span>
+          </td>
+          <td class="opciones">
+            <button class="btn-editar" (click)="editarEvento(evento.id)">Editar</button>
+            <button class="btn-cancelar" (click)="cancelarEvento(evento)"
+              *ngIf="evento.estado === 'ACTIVO'">Cancelar</button>
+            <button class="btn-eliminar" (click)="eliminarEvento(evento.id)">Eliminar</button>
+            <button class="btn-detalle" (click)="verDetalle(evento.id)">Detalle</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

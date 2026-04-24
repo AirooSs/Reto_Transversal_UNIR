@@ -16,4 +16,6 @@ public interface UsuarioService {
 	Usuario updateOne(Usuario usuario);
 
 	int deleteOne(Long id);
+
+	List<Usuario> findByRol(String rol);
 }

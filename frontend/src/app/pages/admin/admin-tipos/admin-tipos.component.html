@@ -1,0 +1,76 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1 class="admin-titulo">Tipos de Evento</h1>
+    <button class="btn-nuevo" (click)="toggleFormulario()">
+      {{ mostrarFormulario ? 'Cancelar' : '+ Nuevo Tipo' }}
+    </button>
+  </div>
+
+  <!-- Formulario nuevo tipo -->
+  <div class="form-card" *ngIf="mostrarFormulario">
+    <h3 class="form-subtitulo">Nuevo Tipo de Evento</h3>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nombre *</label>
+        <input type="text" [(ngModel)]="nuevoTipo.nombre" placeholder="Ej: Rock, Pop, Jazz...">
+      </div>
+      <div class="form-group">
+        <label>Descripción</label>
+        <input type="text" [(ngModel)]="nuevoTipo.descripcion" placeholder="Descripción del tipo">
+      </div>
+    </div>
+    <div class="error-mensaje" *ngIf="error">{{ error }}</div>
+    <div class="form-acciones">
+      <button class="btn-guardar" (click)="crearTipo()">Crear Tipo</button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="admin-loading">Cargando tipos...</div>
+
+  <div *ngIf="!loading && tipos.length === 0" class="admin-empty">
+    No hay tipos de evento creados.
+  </div>
+
+  <!-- Tabla de tipos -->
+  <div *ngIf="!loading && tipos.length > 0" class="tabla-container">
+    <table class="tabla-tipos">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tipo of tipos">
+          <td>{{ tipo.id }}</td>
+
+          <!-- Modo edición -->
+          <ng-container *ngIf="editandoId === tipo.id">
+            <td>
+              <input type="text" [(ngModel)]="tipoEditando!.nombre" class="input-inline">
+            </td>
+            <td>
+              <input type="text" [(ngModel)]="tipoEditando!.descripcion" class="input-inline">
+            </td>
+            <td class="opciones">
+              <button class="btn-guardar" (click)="guardarEdicion()">Guardar</button>
+              <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+            </td>
+          </ng-container>
+
+          <!-- Modo visualización -->
+          <ng-container *ngIf="editandoId !== tipo.id">
+            <td>{{ tipo.nombre }}</td>
+            <td>{{ tipo.descripcion }}</td>
+            <td class="opciones">
+              <button class="btn-editar" (click)="editarTipo(tipo)">Editar</button>
+              <button class="btn-eliminar" (click)="eliminarTipo(tipo.id, tipo.nombre)">Eliminar</button>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
