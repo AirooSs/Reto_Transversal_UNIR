@@ -46,19 +46,19 @@ public class SecurityConfig {
 				.requestMatchers("/static/**").permitAll()
 
 				// Solo ROLE_ADMON puede crear/editar/borrar eventos y tipos
-				.requestMatchers(HttpMethod.POST, "/eventos/**").hasRole("ADMON")
-				.requestMatchers(HttpMethod.PUT, "/eventos/**").hasRole("ADMON")
-				.requestMatchers(HttpMethod.DELETE, "/eventos/**").hasRole("ADMON")
-				.requestMatchers(HttpMethod.POST, "/tipoevento/**").hasRole("ADMON")
-				.requestMatchers(HttpMethod.PUT, "/tipoevento/**").hasRole("ADMON")
-				.requestMatchers(HttpMethod.DELETE, "/tipoevento/**").hasRole("ADMON")
+				.requestMatchers(HttpMethod.POST, "/eventos/**").hasAuthority("ROLE_ADMON")
+				.requestMatchers(HttpMethod.PUT, "/eventos/**").hasAuthority("ROLE_ADMON")
+				.requestMatchers(HttpMethod.DELETE, "/eventos/**").hasAuthority("ROLE_ADMON")
+				.requestMatchers(HttpMethod.POST, "/tipoevento/**").hasAuthority("ROLE_ADMON")
+				.requestMatchers(HttpMethod.PUT, "/tipoevento/**").hasAuthority("ROLE_ADMON")
+				.requestMatchers(HttpMethod.DELETE, "/tipoevento/**").hasAuthority("ROLE_ADMON")
+				.requestMatchers("/usuario/**").hasAuthority("ROLE_ADMON")
 
 				// Gestión de usuarios: solo ADMON
 				.requestMatchers("/usuario/**").hasRole("ADMON")
 
 				// Reservas: solo ROLE_CLIENTE y ROLE_ADMON
-				.requestMatchers("/reserva/**").hasAnyRole("CLIENTE", "ADMON")
-
+				.requestMatchers("/reserva/**").hasAnyAuthority("ROLE_CLIENTE", "ROLE_ADMON")
 				// Todo lo demás requiere autenticación
 				.anyRequest().authenticated()
 			)

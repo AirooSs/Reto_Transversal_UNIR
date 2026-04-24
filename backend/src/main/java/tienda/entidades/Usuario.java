@@ -12,6 +12,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
@@ -34,6 +36,7 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	private String rol;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private List<Reserva> reservas;
 

@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "eventos")
 public class Evento implements Serializable {
@@ -44,6 +46,7 @@ public class Evento implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EstadoEvento estado;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "evento")
 	private List<Reserva> reservas;
 
