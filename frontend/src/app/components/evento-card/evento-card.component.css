@@ -1,4 +1,3 @@
-/* src/app/components/evento-card/evento-card.component.css */
 .evento-card {
   position: relative;
   cursor: pointer;
@@ -18,6 +17,7 @@
   position: relative;
   width: 100%;
   aspect-ratio: 3 / 3.5;
+  overflow: hidden;
 }
 
 .card-image img {
@@ -32,15 +32,13 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0.3rem 0.25rem;
-  font-family: 'Arial', sans-serif;
-  background: rgba(0, 0, 0, 0.5);
-  line-height: 1.2;
+  padding: 2rem 0.5rem 0.5rem 0.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
   z-index: 10;
 }
 
 .evento-nombre {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: bold;
   margin: 0;
   color: white;
@@ -51,19 +49,16 @@
 }
 
 .evento-fecha {
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   color: white;
-  margin: 0.03rem 0 0 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin: 0.1rem 0 0 0;
   opacity: 0.9;
-}
-.eventos-grid {
-  margin-bottom: 0;
-  padding-bottom: 0;
+  text-transform: uppercase;
 }
 
-.evento-card:last-child {
-  margin-bottom: 0;
+.evento-precio {
+  font-size: 0.6rem;
+  color: white;
+  margin: 0.1rem 0 0 0;
+  opacity: 0.9;
 }

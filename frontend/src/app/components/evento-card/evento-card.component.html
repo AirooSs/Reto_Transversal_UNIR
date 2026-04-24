@@ -1,10 +1,10 @@
 <div class="evento-card" (click)="onCardClick()">
   <div class="card-image">
-    <img [src]="getImagenUrl(evento.imagenUrl || evento.imagen)" [alt]="getNombre()">
-  </div>
-  <div class="card-info">
-    <h3 class="evento-nombre">{{ getNombre() }}</h3>
-    <p class="evento-fecha">{{ evento.fecha }}</p>
-    <p *ngIf="evento.precio" class="evento-precio">{{ evento.precio | currency:'EUR':'symbol':'1.0-0' }}</p>
+    <img [src]="'http://localhost:9008' + evento.imagenUrl" [alt]="evento.titulo">
+    <div class="card-info">
+      <h3 class="evento-nombre">{{ evento.titulo }}</h3>
+      <p class="evento-fecha">{{ evento.fecha | date:'dd \'de\' MMMM \'de\' yyyy':'':'es' | uppercase }}</p>
+      <p *ngIf="evento.precio" class="evento-precio">{{ evento.precio | currency:'EUR':'symbol':'1.0-0' }}</p>
+    </div>
   </div>
 </div>

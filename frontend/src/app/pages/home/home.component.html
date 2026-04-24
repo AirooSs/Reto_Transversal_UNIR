@@ -2,35 +2,55 @@
 <div class="home-page">
   <!-- Banner publicitario -->
   <div class="banner-container">
-    <img src="/assets/banner.png" alt="Banner publicitario" class="banner-img">
+    <img
+      src="/assets/banner.png"
+      alt="Banner publicitario"
+      class="banner-img"
+    />
   </div>
 
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading">Cargando eventos...</div>
+
   <!-- Contenido principal -->
-  <div class="home-container">
-    <!-- Columna izquierda - Evento fijo (siempre evento1) -->
+  <div class="home-container" *ngIf="!loading">
+    <!-- Columna izquierda - Evento destacado -->
     <div class="left-column">
-  <div class="evento-destacado" *ngIf="eventoFijo">
-    <div class="destacado-imagen" (click)="onEventoClick(eventoFijo)" style="cursor: pointer;">
-      <img [src]="eventoFijo.imagen" [alt]="eventoFijo.nombre">
-      <div class="destacado-fecha">{{ eventoFijo.fecha }}</div>
-      
-      <a href="#" class="destacado-comprar" 
-         (click)="$event.stopPropagation(); $event.preventDefault(); onComprarClick(eventoFijo)">
-         COMPRAR
-      </a>
-      
-      <div class="destacado-nombre">{{ eventoFijo.nombre }}</div>
+      <div class="evento-destacado" *ngIf="eventoDestacado">
+        <div
+          class="destacado-imagen"
+          (click)="onEventoClick(eventoDestacado)"
+          style="cursor: pointer"
+        >
+          <img
+            [src]="'http://localhost:9008' + eventoDestacado.imagenUrl"
+            [alt]=""
+            draggable="false"
+            style="display: block; width: 100%; height: 100%; object-fit: cover"
+          />
+          <div class="destacado-fecha">
+            {{ eventoDestacado.fecha | date: "dd/MM/yyyy" }}
+          </div>
+          <div class="destacado-nombre">{{ eventoDestacado.titulo }}</div>
+          
+          <button
+            class="destacado-comprar"
+            (click)="$event.stopPropagation(); onEventoClick(eventoDestacado)"
+          >
+            RESERVAR
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
     <!-- Columna derecha - Grid de eventos -->
     <div class="right-column">
       <div class="eventos-grid">
-        <app-evento-card 
-          *ngFor="let evento of eventos" 
+        <app-evento-card
+          *ngFor="let evento of eventos"
           [evento]="evento"
-          (cardClick)="onEventoClick(evento)">
+          (cardClick)="onEventoClick(evento)"
+        >
         </app-evento-card>
       </div>
     </div>

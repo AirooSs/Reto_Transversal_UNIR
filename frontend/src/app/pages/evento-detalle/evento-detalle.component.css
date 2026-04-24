@@ -149,10 +149,12 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   font-weight: bold;
+  margin-top: 0.3rem; /* <-- añade esto */
 }
 
 .venue-col {
   flex: 2;
+  margin-left: 1rem;
 }
 
 .venue-name {
@@ -312,4 +314,143 @@
 
 .concert-row:hover {
   background-color: #f9f9f9;
+}
+
+/* ── Sección reserva ── */
+.reserva-section {
+  margin: 0 0 1.5rem 0;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 12px;
+}
+
+.reserva-titulo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.reserva-cantidad {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.reserva-cantidad label {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.cantidad-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cantidad-control button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: white;
+  color: #333;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.cantidad-control button:hover {
+  background: #eee;
+}
+
+.cantidad-control span {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+.reserva-precio-total {
+  font-size: 0.9rem;
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.btn-reserva {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.6rem 2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.btn-reserva:hover { background-color: #333; }
+.btn-reserva:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-secundario {
+  background: white;
+  border: 1px solid #333;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.btn-secundario:hover { background: #f0f0f0; }
+
+.reserva-acciones {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.reserva-aviso {
+  color: #444;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.reserva-error {
+  color: #a94442;
+  font-size: 0.78rem;
+  margin-bottom: 0.8rem;
+  padding: 0.5rem 0.8rem;
+  background: #fce4e4;
+  border-radius: 6px;
+}
+
+.reserva-exito {
+  color: #33691e;
+  font-size: 0.82rem;
+  padding: 0.8rem;
+  background: #f1f8e9;
+  border-radius: 6px;
+}
+
+.reserva-exito a {
+  color: #33691e;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.reserva-agotado {
+  color: #a94442;
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 0.5rem;
 }
