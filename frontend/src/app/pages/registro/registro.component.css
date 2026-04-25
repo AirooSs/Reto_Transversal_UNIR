@@ -69,17 +69,21 @@
 
 .submit-btn {
   display: block;
-  margin: 1.5rem auto 0;
+  margin: 1.8rem auto 0;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: 'Fredoka One', cursive;
   color: #e8474a;
-  font-size: 1.8rem;
+  font-size: 1rem;
+  background-color: #fff;
+  padding: 0.5rem;
+  border-radius: 30px;
+  font-weight: bold;
 }
 
 .submit-btn:hover {
-  color: #c0392b;
+  background-color: #e8474a;
+  color: #fff;
 }
 
 

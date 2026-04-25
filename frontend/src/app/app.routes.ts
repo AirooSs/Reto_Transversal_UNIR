@@ -4,6 +4,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { EventoDetalleComponent } from './pages/evento-detalle/evento-detalle.component';
 import { authGuard, adminGuard } from './guards/auth.guard';
 import { ArtistasComponent } from './pages/artistas/artistas.component';
+import { EventosPublicosComponent } from './pages/eventos-publicos/eventos-publicos.component';
 
 export const routes: Routes = [
   // Rutas públicas
@@ -11,6 +12,10 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'evento-detalle/:id', component: EventoDetalleComponent },
   { path: 'artistas', component: ArtistasComponent },
+  { path: 'eventos/activos', component: EventosPublicosComponent },
+  { path: 'eventos/destacados', component: EventosPublicosComponent },
+  { path: 'eventos/cancelados', component: EventosPublicosComponent },
+  { path: 'eventos/tipo/:id', component: EventosPublicosComponent },
 
   // Rutas protegidas ROLE_CLIENTE y ROLE_ADMON
   {
@@ -90,29 +95,43 @@ export const routes: Routes = [
   // Rutas protegidas ROLE_CLIENTE
   {
     path: 'clientes/activos',
-    loadComponent: () => import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(m => m.ClienteEventosComponent),
-    canActivate: [authGuard]
-},
-{
+    loadComponent: () =>
+      import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(
+        (m) => m.ClienteEventosComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'clientes/destacados',
-    loadComponent: () => import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(m => m.ClienteEventosComponent),
-    canActivate: [authGuard]
-},
-{
+    loadComponent: () =>
+      import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(
+        (m) => m.ClienteEventosComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'clientes/cancelados',
-    loadComponent: () => import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(m => m.ClienteEventosComponent),
-    canActivate: [authGuard]
-},
-{
+    loadComponent: () =>
+      import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(
+        (m) => m.ClienteEventosComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'clientes/terminados',
-    loadComponent: () => import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(m => m.ClienteEventosComponent),
-    canActivate: [authGuard]
-},
-{
+    loadComponent: () =>
+      import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(
+        (m) => m.ClienteEventosComponent,
+      ),
+    canActivate: [authGuard],
+  },
+  {
     path: 'clientes/tipo/:id',
-    loadComponent: () => import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(m => m.ClienteEventosComponent),
-    canActivate: [authGuard]
-},
-
+    loadComponent: () =>
+      import('./pages/clientes/cliente-eventos/cliente-eventos.component').then(
+        (m) => m.ClienteEventosComponent,
+      ),
+    canActivate: [authGuard],
+  },
   { path: '**', redirectTo: '' },
 ];

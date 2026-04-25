@@ -99,6 +99,20 @@
             </li>
           </ul>
         </li>
+        <li class="dropdown" (click)="toggleTipos()">
+          <a href="javascript:void(0)">Tipo de Evento ▼</a>
+          <ul class="dropdown-menu" *ngIf="isTiposOpen">
+            @for (tipo of tiposEvento; track tipo.id) {
+              <li (click)="cerrarMenu()">
+                <a
+                  href="javascript:void(0)"
+                  (click)="filtrarPorTipo(tipo.id)"
+                  >{{ tipo.nombre }}</a
+                >
+              </li>
+            }
+          </ul>
+        </li>
       </ul>
     </ng-container>
 

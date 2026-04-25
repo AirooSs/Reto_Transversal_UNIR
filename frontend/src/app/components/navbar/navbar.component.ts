@@ -32,9 +32,9 @@ export class NavbarComponent implements OnInit {
   }
 
   cargarTiposEvento(): void {
-    if (this.authService.isLoggedIn() && !this.authService.isAdmin()) {
+    if (!this.authService.isAdmin()) {
       this.tipoEventoService.getTipos().subscribe({
-        next: (tipos) => this.tiposEvento = tipos,
+        next: (tipos) => (this.tiposEvento = tipos),
         error: (err) => console.error('Error cargando tipos de evento', err),
       });
     }
@@ -61,11 +61,10 @@ export class NavbarComponent implements OnInit {
     this.isTiposOpen = !this.isTiposOpen;
     this.isEventosOpen = false;
 
-    // Cargar tipos bajo demanda si no están cargados
     if (this.isTiposOpen && this.tiposEvento.length === 0) {
       this.tipoEventoService.getTipos().subscribe({
-        next: (tipos) => this.tiposEvento = tipos,
-        error: (err) => console.error('Error cargando tipos', err)
+        next: (tipos) => (this.tiposEvento = tipos),
+        error: (err) => console.error('Error cargando tipos', err),
       });
     }
   }
@@ -73,7 +72,11 @@ export class NavbarComponent implements OnInit {
   filtrarPorTipo(tipoId: number): void {
     this.isTiposOpen = false;
     this.cerrarMenu();
-    this.router.navigate(['/clientes/tipo', tipoId]);
+    if (this.authService.isLoggedIn() && !this.authService.isAdmin()) {
+      this.router.navigate(['/clientes/tipo', tipoId]);
+    } else {
+      this.router.navigate(['/eventos/tipo', tipoId]);
+    }
   }
 
   abrirLogin(): void {
