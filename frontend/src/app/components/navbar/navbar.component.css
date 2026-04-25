@@ -133,6 +133,7 @@
   padding: 0;
   z-index: 1002;
   flex-shrink: 0;
+  order: -1; /* Siempre a la izquierda */
 }
 
 .hamburger span {
@@ -144,13 +145,10 @@
   transition: all 0.3s ease;
 }
 
-/* Animación X al abrir */
 .hamburger.active span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
+.hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
@@ -166,29 +164,24 @@
   z-index: 999;
 }
 
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-shrink: 0;
-}
-
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .hamburger { display: flex; }
+
+  .menu-close-item { display: block; }
 
   .navbar-menu {
     display: none;
     position: fixed;
     top: 0;
-    left: 0;
+    left: 0; /* Desde la izquierda */
     width: 75%;
-    max-width: 300px;
+    max-width: 280px;
     height: 100vh;
     background-color: #FF8181;
     flex-direction: column;
     gap: 0;
-    padding: 5rem 0 2rem 0;
+    padding: 3rem 0 2rem 0; /* Menos padding arriba, el botón cerrar ocupa ese espacio */
     z-index: 1001;
     box-shadow: 2px 0 10px rgba(0,0,0,0.2);
     overflow-y: auto;
@@ -231,10 +224,7 @@
     display: inline-block;
   }
 
-  .navbar-user {
-    gap: 0.5rem;
-  }
-
+  .navbar-user { gap: 0.5rem; }
   .btn-nav { font-size: 0.75rem; }
   .user-nombre { font-size: 0.75rem; }
 }
