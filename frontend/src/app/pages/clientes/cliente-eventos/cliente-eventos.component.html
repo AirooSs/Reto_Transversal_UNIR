@@ -1,0 +1,20 @@
+<div class="cliente-eventos-container">
+  <div class="cliente-header">
+    <a routerLink="/" class="back-link">← VOLVER AL INICIO</a>
+    <h1 class="cliente-titulo">{{ tituloLista }}</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">Cargando eventos...</div>
+
+  <div *ngIf="!loading && eventosFiltrados.length === 0" class="empty">
+    No hay eventos en esta categoría.
+  </div>
+
+  <div *ngIf="!loading && eventosFiltrados.length > 0" class="eventos-grid">
+    <app-evento-card
+      *ngFor="let evento of eventosFiltrados"
+      [evento]="evento"
+      (cardClick)="onEventoClick(evento)">
+    </app-evento-card>
+  </div>
+</div>

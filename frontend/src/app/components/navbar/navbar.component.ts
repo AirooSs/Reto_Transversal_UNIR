@@ -12,14 +12,33 @@ import { TipoEvento } from '../../services/evento.service';
   standalone: true,
   imports: [RouterLink, CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
 })
-
 export class NavbarComponent implements OnInit {
   isEventosOpen = false;
   isTiposOpen = false;
   isMenuOpen = false;
   tiposEvento: TipoEvento[] = [];
+
+  constructor(
+    private modalService: ModalService,
+    public authService: AuthService,
+    private router: Router,
+    private tipoEventoService: TipoEventoService,
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarTiposEvento();
+  }
+
+  cargarTiposEvento(): void {
+    if (this.authService.isLoggedIn() && !this.authService.isAdmin()) {
+      this.tipoEventoService.getTipos().subscribe({
+        next: (tipos) => this.tiposEvento = tipos,
+        error: (err) => console.error('Error cargando tipos de evento', err),
+      });
+    }
+  }
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
@@ -27,43 +46,34 @@ export class NavbarComponent implements OnInit {
     this.isTiposOpen = false;
   }
 
-  // Cierra el menú al navegar
   cerrarMenu(): void {
     this.isMenuOpen = false;
     this.isEventosOpen = false;
     this.isTiposOpen = false;
   }
 
-  constructor(
-    private modalService: ModalService,
-    public authService: AuthService,
-    private router: Router,
-    private tipoEventoService: TipoEventoService
-  ) {}
-
-  ngOnInit(): void {
-    // Cargamos los tipos de evento para el desplegable del cliente
-    if (this.authService.isLoggedIn() && !this.authService.isAdmin()) {
-      this.tipoEventoService.getTipos().subscribe({
-        next: (tipos) => this.tiposEvento = tipos,
-        error: (err) => console.error('Error cargando tipos de evento', err)
-      });
-    }
-  }
-
   toggleEventos(): void {
     this.isEventosOpen = !this.isEventosOpen;
-    this.isTiposOpen = false; // cierra el otro dropdown
+    this.isTiposOpen = false;
   }
 
   toggleTipos(): void {
     this.isTiposOpen = !this.isTiposOpen;
-    this.isEventosOpen = false; // cierra el otro dropdown
+    this.isEventosOpen = false;
+
+    // Cargar tipos bajo demanda si no están cargados
+    if (this.isTiposOpen && this.tiposEvento.length === 0) {
+      this.tipoEventoService.getTipos().subscribe({
+        next: (tipos) => this.tiposEvento = tipos,
+        error: (err) => console.error('Error cargando tipos', err)
+      });
+    }
   }
 
   filtrarPorTipo(tipoId: number): void {
     this.isTiposOpen = false;
-    this.router.navigate(['/clientes/activos'], { queryParams: { tipo: tipoId } });
+    this.cerrarMenu();
+    this.router.navigate(['/clientes/tipo', tipoId]);
   }
 
   abrirLogin(): void {
@@ -76,6 +86,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.tiposEvento = [];
     this.router.navigate(['/']);
   }
 
