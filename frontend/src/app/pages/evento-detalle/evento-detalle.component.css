@@ -454,3 +454,78 @@
   text-align: center;
   padding: 0.5rem;
 }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .artist-detail-container {
+    flex-direction: column;
+  }
+
+  .hero-image-side {
+    min-height: 350px;
+    width: 100%;
+    flex: none;
+  }
+
+  .overlay-gradient {
+    display: none;
+  }
+
+  .info-content-side {
+    padding: 1.5rem;
+    flex: none;
+    width: 100%;
+  }
+
+  .artist-name-title {
+    font-size: 2rem;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  .caracteristicas-section {
+    grid-template-columns: 1fr;
+  }
+
+  .concert-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+  .status-col {
+    display: none;
+  }
+
+  .action-col {
+    min-width: auto;
+    text-align: left;
+  }
+
+  .date-col {
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image-side {
+    min-height: 280px;
+  }
+
+  .info-content-side {
+    padding: 1rem;
+  }
+
+  .artist-name-title {
+    font-size: 1.6rem;
+  }
+
+  .fecha-dia {
+    font-size: 1.8rem;
+  }
+
+  .btn-oval {
+    padding: 6px 16px;
+    font-size: 0.65rem;
+  }
+}

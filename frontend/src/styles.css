@@ -12,7 +12,6 @@ html, body {
 }
 
 body {
-  padding-top: 56px;
   font-family: 'Arial', sans-serif;
   font-size: 14px;
   background-color: #f5f5f5;
@@ -25,7 +24,9 @@ app-root {
 }
 
 main {
-  flex: 1 0 auto;
+  flex: 0 0 auto;
+  padding-top: 45px; /* ajusta este valor hasta que desaparezca */
+  margin: 0;
 }
 
 router-outlet {
