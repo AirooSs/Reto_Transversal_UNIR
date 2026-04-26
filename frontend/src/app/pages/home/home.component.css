@@ -208,3 +208,10 @@
     gap: 0.5rem;
   }
 }
+
+.home-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: calc(100vh - 45px - 200px); /* Ajusta estos números: 45px es el padding-top de main, 200px es aprox la altura del footer */
+}
