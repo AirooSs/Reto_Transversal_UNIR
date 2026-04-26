@@ -56,14 +56,18 @@
           <a href="javascript:void(0)">Tipo de Evento ▼</a>
           <ul class="dropdown-menu" *ngIf="isTiposOpen">
             @for (tipo of tiposEvento; track tipo.id) {
-              <li>
-                <a href="javascript:void(0)" (click)="filtrarPorTipo(tipo.id)">{{ tipo.nombre }}</a>
-              </li>
+            <li>
+              <a href="javascript:void(0)" (click)="filtrarPorTipo(tipo.id)">{{ tipo.nombre }}</a>
+            </li>
             }
           </ul>
         </li>
         <li (click)="cerrarMenu()">
           <a routerLink="/mis-reservas">Mis Reservas</a>
+        </li>
+        <!-- AÑADIR ENLACE A ARTISTAS -->
+        <li (click)="cerrarMenu()">
+          <a routerLink="/artistas">Artistas</a>
         </li>
       </ul>
     </ng-container>
@@ -83,11 +87,15 @@
           <a href="javascript:void(0)">Tipo de Evento ▼</a>
           <ul class="dropdown-menu" *ngIf="isTiposOpen">
             @for (tipo of tiposEvento; track tipo.id) {
-              <li (click)="cerrarMenu()">
-                <a href="javascript:void(0)" (click)="filtrarPorTipo(tipo.id)">{{ tipo.nombre }}</a>
-              </li>
+            <li (click)="cerrarMenu()">
+              <a href="javascript:void(0)" (click)="filtrarPorTipo(tipo.id)">{{ tipo.nombre }}</a>
+            </li>
             }
           </ul>
+        </li>
+        <!-- AÑADIR ENLACE A ARTISTAS -->
+        <li (click)="cerrarMenu()">
+          <a routerLink="/artistas">Artistas</a>
         </li>
       </ul>
     </ng-container>
