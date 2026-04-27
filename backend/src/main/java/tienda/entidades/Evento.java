@@ -1,20 +1,17 @@
 package tienda.entidades;
 
 import jakarta.persistence.*;
-import lombok.*;
 import tienda.enums.EstadoEvento;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "eventos")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Evento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +21,10 @@ public class Evento implements Serializable {
 	private Long id;
 
 	private String titulo;
+
+	private String artista;
+
+	private String localidad;
 
 	private String descripcion;
 
@@ -37,14 +38,98 @@ public class Evento implements Serializable {
 
 	private Integer plazasDisponibles;
 
-	@Enumerated(EnumType.STRING)
+	@Column(name = "imagen_url")
+	private String imagenUrl;
 
+	private Boolean destacado = false;
+
+	@Enumerated(EnumType.STRING)
 	private EstadoEvento estado;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "evento")
 	private List<Reserva> reservas;
 
 	@ManyToOne
 	@JoinColumn(name = "tipo_evento_id")
 	private TipoEvento tipoEvento;
+
+	public Evento() {
+	}
+
+	public Evento(Long id, String titulo, String artista, String localidad, String descripcion, LocalDateTime fecha,
+			int duracion, double precio, Integer aforoMaximo, Integer plazasDisponibles, String imagenUrl,
+			Boolean destacado, EstadoEvento estado, List<Reserva> reservas, TipoEvento tipoEvento) {
+		this.id = id;
+		this.titulo = titulo;
+		this.artista = artista;
+		this.localidad = localidad;
+		this.descripcion = descripcion;
+		this.fecha = fecha;
+		this.duracion = duracion;
+		this.precio = precio;
+		this.aforoMaximo = aforoMaximo;
+		this.plazasDisponibles = plazasDisponibles;
+		this.imagenUrl = imagenUrl;
+		this.destacado = destacado != null ? destacado : false;
+		this.estado = estado;
+		this.reservas = reservas;
+		this.tipoEvento = tipoEvento;
+	}
+
+	public Long getId() { return id; }
+	public void setId(Long id) { this.id = id; }
+
+	public String getTitulo() { return titulo; }
+	public void setTitulo(String titulo) { this.titulo = titulo; }
+
+	public String getArtista() { return artista; }
+	public void setArtista(String artista) { this.artista = artista; }
+
+	public String getLocalidad() { return localidad; }
+	public void setLocalidad(String localidad) { this.localidad = localidad; }
+
+	public String getDescripcion() { return descripcion; }
+	public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+	public LocalDateTime getFecha() { return fecha; }
+	public void setFecha(LocalDateTime fecha) { this.fecha = fecha; }
+
+	public int getDuracion() { return duracion; }
+	public void setDuracion(int duracion) { this.duracion = duracion; }
+
+	public double getPrecio() { return precio; }
+	public void setPrecio(double precio) { this.precio = precio; }
+
+	public Integer getAforoMaximo() { return aforoMaximo; }
+	public void setAforoMaximo(Integer aforoMaximo) { this.aforoMaximo = aforoMaximo; }
+
+	public Integer getPlazasDisponibles() { return plazasDisponibles; }
+	public void setPlazasDisponibles(Integer plazasDisponibles) { this.plazasDisponibles = plazasDisponibles; }
+
+	public String getImagenUrl() { return imagenUrl; }
+	public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
+
+	public Boolean getDestacado() { return destacado; }
+	public void setDestacado(Boolean destacado) { this.destacado = destacado != null ? destacado : false; }
+
+	public EstadoEvento getEstado() { return estado; }
+	public void setEstado(EstadoEvento estado) { this.estado = estado; }
+
+	public List<Reserva> getReservas() { return reservas; }
+	public void setReservas(List<Reserva> reservas) { this.reservas = reservas; }
+
+	public TipoEvento getTipoEvento() { return tipoEvento; }
+	public void setTipoEvento(TipoEvento tipoEvento) { this.tipoEvento = tipoEvento; }
+
+	@Override
+	public int hashCode() { return Objects.hash(id); }
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof Evento)) return false;
+		Evento other = (Evento) obj;
+		return Objects.equals(id, other.id);
+	}
 }

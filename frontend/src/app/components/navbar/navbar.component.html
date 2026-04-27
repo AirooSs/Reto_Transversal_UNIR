@@ -1,0 +1,122 @@
+<nav class="navbar">
+  <div class="navbar-container">
+
+    <!-- Hamburguesa a la IZQUIERDA del logo -->
+    <button class="hamburger" (click)="toggleMenu()" [class.active]="isMenuOpen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- Logo -->
+    <div class="navbar-logo">
+      <a routerLink="/" (click)="cerrarMenu()">
+        <img src="/logo.png" alt="Logo" class="logo-img" />
+      </a>
+    </div>
+
+    <!-- ROLE_ADMON -->
+    <ng-container *ngIf="authService.isAdmin()">
+      <ul class="navbar-menu" [class.open]="isMenuOpen">
+        <!-- Botón cerrar DENTRO del menú -->
+        <li (click)="cerrarMenu()">
+          <a routerLink="/admin/usuarios">Usuarios</a>
+        </li>
+        <li (click)="cerrarMenu()">
+          <a routerLink="/admin/tipos-evento">Tipos de Evento</a>
+        </li>
+        <li class="dropdown" (click)="toggleEventos()">
+          <a href="javascript:void(0)">Eventos ▼</a>
+          <ul class="dropdown-menu" *ngIf="isEventosOpen">
+            <li (click)="cerrarMenu()"><a routerLink="/admin/eventos/activos">Activos</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/admin/eventos/destacados">Destacados</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/admin/eventos/cancelados">Cancelados</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/admin/eventos/terminados">Terminados</a></li>
+          </ul>
+        </li>
+        <li (click)="cerrarMenu()">
+          <a routerLink="/admin/eventos/alta" class="btn-nuevo-evento">Nuevo Evento</a>
+        </li>
+      </ul>
+    </ng-container>
+
+    <!-- ROLE_CLIENTE -->
+    <ng-container *ngIf="authService.isLoggedIn() && !authService.isAdmin()">
+      <ul class="navbar-menu" [class.open]="isMenuOpen">
+        <li class="dropdown" (click)="toggleEventos()">
+          <a href="javascript:void(0)">Eventos ▼</a>
+          <ul class="dropdown-menu" *ngIf="isEventosOpen">
+            <li (click)="cerrarMenu()"><a routerLink="/clientes/activos">Activos</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/clientes/destacados">Destacados</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/clientes/cancelados">Cancelados</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/clientes/terminados">Terminados</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" (click)="toggleTipos()">
+          <a href="javascript:void(0)">Tipo de Evento ▼</a>
+          <ul class="dropdown-menu" *ngIf="isTiposOpen">
+            @for (tipo of tiposEvento; track tipo.id) {
+            <li>
+              <a href="javascript:void(0)" (click)="filtrarPorTipo(tipo.id)">{{ tipo.nombre }}</a>
+            </li>
+            }
+          </ul>
+        </li>
+        <li (click)="cerrarMenu()">
+          <a routerLink="/mis-reservas">Mis Reservas</a>
+        </li>
+        <!-- AÑADIR ENLACE A ARTISTAS -->
+        <li (click)="cerrarMenu()">
+          <a routerLink="/artistas">Artistas</a>
+        </li>
+      </ul>
+    </ng-container>
+
+    <!-- INVITADO -->
+    <ng-container *ngIf="!authService.isLoggedIn()">
+      <ul class="navbar-menu" [class.open]="isMenuOpen">
+        <li class="dropdown" (click)="toggleEventos()">
+          <a href="javascript:void(0)">Eventos ▼</a>
+          <ul class="dropdown-menu" *ngIf="isEventosOpen">
+            <li (click)="cerrarMenu()"><a routerLink="/eventos/activos">Activos</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/eventos/destacados">Destacados</a></li>
+            <li (click)="cerrarMenu()"><a routerLink="/eventos/cancelados">Cancelados</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" (click)="toggleTipos()">
+          <a href="javascript:void(0)">Tipo de Evento ▼</a>
+          <ul class="dropdown-menu" *ngIf="isTiposOpen">
+            @for (tipo of tiposEvento; track tipo.id) {
+            <li (click)="cerrarMenu()">
+              <a href="javascript:void(0)" (click)="filtrarPorTipo(tipo.id)">{{ tipo.nombre }}</a>
+            </li>
+            }
+          </ul>
+        </li>
+        <!-- AÑADIR ENLACE A ARTISTAS -->
+        <li (click)="cerrarMenu()">
+          <a routerLink="/artistas">Artistas</a>
+        </li>
+      </ul>
+    </ng-container>
+
+    <!-- ZONA USUARIO (derecha) -->
+    <div class="navbar-right">
+      <div class="navbar-user">
+        <ng-container *ngIf="!authService.isLoggedIn()">
+          <a href="javascript:void(0)" (click)="abrirLogin()" class="btn-nav">Inicio Sesión</a>
+          <span>|</span>
+          <a href="javascript:void(0)" (click)="abrirRegistro()" class="btn-nav">Registro</a>
+        </ng-container>
+        <ng-container *ngIf="authService.isLoggedIn()">
+          <span class="user-nombre">{{ getNombre() }}</span>
+          <span> | </span>
+          <a href="javascript:void(0)" (click)="logout()" class="btn-nav">Cerrar Sesión</a>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="menu-overlay" *ngIf="isMenuOpen" (click)="cerrarMenu()"></div>
+</nav>

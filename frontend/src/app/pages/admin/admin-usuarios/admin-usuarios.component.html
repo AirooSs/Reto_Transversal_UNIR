@@ -1,0 +1,66 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h1 class="admin-titulo">Gestión de Usuarios</h1>
+
+    <!-- Filtro por rol -->
+    <div class="filtro-rol">
+      <label>Filtrar por rol:</label>
+      <select [(ngModel)]="filtroRol" (change)="onFiltroChange()">
+        <option value="todos">Todos</option>
+        <option value="ROLE_ADMON">Administradores</option>
+        <option value="ROLE_CLIENTE">Clientes</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="admin-loading">Cargando usuarios...</div>
+
+  <div *ngIf="!loading && usuariosFiltrados.length === 0" class="admin-empty">
+    No hay usuarios con este filtro.
+  </div>
+
+  <div *ngIf="!loading && usuariosFiltrados.length > 0" class="tabla-container">
+    <table class="tabla-usuarios">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosFiltrados">
+          <td>{{ usuario.id }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>
+            <!-- Edición de rol inline -->
+            <ng-container *ngIf="editandoId === usuario.id">
+              <select [(ngModel)]="rolEditando">
+                <option value="ROLE_ADMON">Administrador</option>
+                <option value="ROLE_CLIENTE">Cliente</option>
+              </select>
+            </ng-container>
+            <ng-container *ngIf="editandoId !== usuario.id">
+              <span [class]="usuario.rol === 'ROLE_ADMON' ? 'badge-admin' : 'badge-cliente'">
+                {{ usuario.rol === 'ROLE_ADMON' ? 'Administrador' : 'Cliente' }}
+              </span>
+            </ng-container>
+          </td>
+          <td class="opciones">
+            <ng-container *ngIf="editandoId === usuario.id">
+              <button class="btn-guardar" (click)="guardarRol(usuario)">Guardar</button>
+              <button class="btn-cancelar" (click)="cancelarEdicion()">Cancelar</button>
+            </ng-container>
+            <ng-container *ngIf="editandoId !== usuario.id">
+              <button class="btn-editar" (click)="editarRol(usuario)">Cambiar Rol</button>
+              <button class="btn-eliminar" (click)="eliminarUsuario(usuario.id, usuario.nombre)">Eliminar</button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

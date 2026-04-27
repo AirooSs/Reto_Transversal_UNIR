@@ -1,0 +1,20 @@
+<div class="eventos-publicos-container">
+  <div class="eventos-header">
+    <a routerLink="/" class="back-link">← VOLVER AL INICIO</a>
+    <h1 class="eventos-titulo">{{ tituloLista }}</h1>
+  </div>
+
+  <div *ngIf="loading" class="loading">Cargando eventos...</div>
+
+  <div *ngIf="!loading && eventos.length === 0" class="empty">
+    No hay eventos en esta categoría.
+  </div>
+
+  <div *ngIf="!loading && eventos.length > 0" class="eventos-grid">
+    <app-evento-card
+      *ngFor="let evento of eventos"
+      [evento]="evento"
+      (cardClick)="onEventoClick(evento)">
+    </app-evento-card>
+  </div>
+</div>

@@ -2,24 +2,18 @@ package tienda.restcontroller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import tienda.entidades.Evento;
 import tienda.service.EventoService;
 
 @RestController
-@RequestMapping("/evento")
+@RequestMapping("/eventos")
+@CrossOrigin(origins = "http://localhost:4200")
 public class EventoRestController {
-	
-	@Autowired EventoService eventoservice;
-	
+
+	@Autowired
+	EventoService eventoservice;
+
 	@GetMapping("/")
 	ResponseEntity<?> todos() {
 		return ResponseEntity.ok(eventoservice.findAll());
@@ -28,6 +22,11 @@ public class EventoRestController {
 	@GetMapping("/{id}")
 	ResponseEntity<?> uno(@PathVariable Long id) {
 		return ResponseEntity.ok(eventoservice.findById(id));
+	}
+
+	@GetMapping("/destacados")
+	ResponseEntity<?> destacados() {
+		return ResponseEntity.ok(eventoservice.findDestacados());
 	}
 
 	@PostMapping("/")
@@ -45,5 +44,4 @@ public class EventoRestController {
 		eventoservice.deleteOne(id);
 		return ResponseEntity.noContent().build();
 	}
-
 }

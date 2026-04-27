@@ -1,0 +1,60 @@
+<div class="reservas-container">
+  <div class="reservas-header">
+    <a routerLink="/" class="back-link">← VOLVER A EVENTOS</a>
+    <h1 class="reservas-titulo">MIS RESERVAS</h1>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="reservas-loading">Cargando reservas...</div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="reservas-error">{{ error }}</div>
+
+  <!-- Sin reservas -->
+  <div *ngIf="!loading && reservas.length === 0" class="reservas-empty">
+    <p>No tienes reservas activas.</p>
+    <a routerLink="/" class="btn-explorar">EXPLORAR EVENTOS</a>
+  </div>
+
+  <!-- Lista de reservas -->
+  <div *ngIf="!loading && reservas.length > 0" class="reservas-lista">
+    <div class="reserva-card" *ngFor="let reserva of reservas">
+
+      <!-- Imagen -->
+      <div class="reserva-imagen">
+        <img [src]="getImagenUrl(reserva.evento.imagenUrl)" [alt]="reserva.evento.titulo">
+      </div>
+
+      <!-- Info -->
+      <div class="reserva-info">
+        <h2 class="reserva-titulo-evento">{{ reserva.evento.titulo }}</h2>
+        <p class="reserva-artista">{{ reserva.evento.artista }}</p>
+        <div class="reserva-detalles">
+          <span class="reserva-detalle">
+            📅 {{ reserva.evento.fecha | date:'dd/MM/yyyy' }}
+          </span>
+          <span class="reserva-detalle">
+            📍 {{ reserva.evento.localidad }}
+          </span>
+          <span class="reserva-detalle">
+            🎟️ {{ reserva.cantidad }} entrada{{ reserva.cantidad > 1 ? 's' : '' }}
+          </span>
+          <span class="reserva-detalle reserva-precio">
+            💶 Total: {{ getPrecioTotal(reserva) | currency:'EUR':'symbol':'1.0-0' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Acción -->
+      <div class="reserva-accion">
+        <button 
+          class="btn-cancelar"
+          (click)="cancelarReserva(reserva.id)"
+          [disabled]="cancelandoId === reserva.id">
+          {{ cancelandoId === reserva.id ? 'Cancelando...' : 'CANCELAR' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -49,4 +49,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 		return 0;
 	}
+
+	@Override
+    public List<Usuario> findByRol(String rol) { // <-- nuevo
+        return usuarioRepository.findByRol(rol);
+    }
 }

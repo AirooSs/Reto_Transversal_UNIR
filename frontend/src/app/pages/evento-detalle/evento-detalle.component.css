@@ -1,0 +1,531 @@
+.artist-detail-container {
+  display: flex;
+  width: 100%;
+  height: auto; 
+  background-color: white;
+}
+
+.hero-image-side {
+  flex: 1;
+  position: relative;
+  min-height: 690px; 
+}
+
+.hero-image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.info-content-side {
+  flex: 1;
+  padding: 4rem;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.overlay-gradient {
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, white 95%);
+}
+
+.concerts-section {
+  margin-top: 1.5rem;
+  flex-grow: 1; 
+}
+
+.concert-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.btn-action {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s;
+}
+
+.btn-action:hover {
+  background-color: #333;
+}
+
+.date-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 80px;
+}
+
+.day {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.month {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.back-link {
+  text-decoration: none;
+  color: #888;
+  font-size: 0.7rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.artist-name-title {
+  font-size: 3.5rem;
+  font-weight: 300; 
+  margin: 0 0 1.5rem 0;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.section-header h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.ver-todos-link {
+  color: #ff4d4d; 
+  font-size: 0.7rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.concert-row {
+  display: flex;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.date-col {
+  min-width: 100px;
+}
+
+.day-red {
+  color: #ff4d4d; 
+  font-size: 1.8rem;
+  font-weight: 600;
+  display: block;
+  line-height: 1;
+}
+
+.month-gray {
+  color: #888;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 0.3rem; /* <-- añade esto */
+}
+
+.venue-col {
+  flex: 2;
+  margin-left: 1rem;
+}
+
+.venue-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: block;
+}
+
+.city-name {
+  color: #666;
+  margin: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.status-col {
+  flex: 1;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  padding: 0 10px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; 
+  padding: 4px 15px;
+  min-width: 110px;
+  height: 28px;     
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: none;
+}
+
+.badge-soldout {
+  background-color: #fce4e4;
+  color: #a94442;
+}
+
+.badge-few {
+  background-color: #f1f8e9;
+  color: #33691e;
+}
+
+.btn-oval {
+  border: 1px solid #333;
+  background: transparent;
+  color: black;
+  padding: 8px 25px;
+  border-radius: 50px; 
+  font-weight: 800;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+}
+
+.btn-oval:hover:not(.btn-disabled) {
+  background: black;
+  color: white;
+}
+
+.btn-disabled {
+  background: #f0f0f0;
+  color: #bbb;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
+
+.action-col {
+  min-width: 150px;
+  text-align: right;
+}
+
+/* ===== NUEVOS ESTILOS (FECHA Y DESCRIPCIÓN) ===== */
+.fecha-destacada {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem 0;
+  border-bottom: 2px solid #ff4d4d;
+  padding-bottom: 0.5rem;
+  align-self: flex-start;
+}
+
+.fecha-dia {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #ff4d4d;
+  line-height: 1;
+}
+
+.fecha-mes {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.description-section {
+  margin: 0 0 1.5rem 0;
+}
+
+.description-text {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #444;
+  margin: 0;
+  text-align: justify;
+}
+
+/* ===== CARACTERÍSTICAS DEL EVENTO ===== */
+.caracteristicas-section {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem 1rem;
+  background: #f8f8f8;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  margin: 0 0 1.5rem 0;
+}
+
+.caracteristica-item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.caracteristica-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.75rem;
+}
+
+.caracteristica-label::after {
+  content: ':';
+  margin-left: 0.15rem;
+  margin-right: 0.25rem;
+}
+
+.caracteristica-valor {
+  color: #333;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.concert-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.concert-row:hover {
+  background-color: #f9f9f9;
+}
+
+/* ── Sección reserva ── */
+.reserva-section {
+  margin: 0 0 1.5rem 0;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 12px;
+}
+
+.reserva-titulo {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.reserva-cantidad {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.reserva-cantidad label {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 600;
+}
+
+.cantidad-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cantidad-control button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: white;
+  color: #333;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.cantidad-control button:hover {
+  background: #eee;
+}
+
+.cantidad-control span {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+.reserva-precio-total {
+  font-size: 0.9rem;
+  color: #ff4d4d;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.btn-reserva {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.6rem 2rem;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.btn-reserva:hover { background-color: #333; }
+.btn-reserva:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-secundario {
+  background: white;
+  border: 1px solid #333;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.btn-secundario:hover { background: #f0f0f0; }
+
+.reserva-acciones {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.reserva-aviso {
+  color: #444;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.reserva-error {
+  color: #a94442;
+  font-size: 0.78rem;
+  margin-bottom: 0.8rem;
+  padding: 0.5rem 0.8rem;
+  background: #fce4e4;
+  border-radius: 6px;
+}
+
+.reserva-exito {
+  color: #33691e;
+  font-size: 0.82rem;
+  padding: 0.8rem;
+  background: #f1f8e9;
+  border-radius: 6px;
+}
+
+.reserva-exito a {
+  color: #33691e;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.reserva-agotado {
+  color: #a94442;
+  font-weight: bold;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .artist-detail-container {
+    flex-direction: column;
+  }
+
+  .hero-image-side {
+    min-height: 350px;
+    width: 100%;
+    flex: none;
+  }
+
+  .overlay-gradient {
+    display: none;
+  }
+
+  .info-content-side {
+    padding: 1.5rem;
+    flex: none;
+    width: 100%;
+  }
+
+  .artist-name-title {
+    font-size: 2rem;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+  }
+
+  .caracteristicas-section {
+    grid-template-columns: 1fr;
+  }
+
+  .concert-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+  .status-col {
+    display: none;
+  }
+
+  .action-col {
+    min-width: auto;
+    text-align: left;
+  }
+
+  .date-col {
+    min-width: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-image-side {
+    min-height: 280px;
+  }
+
+  .info-content-side {
+    padding: 1rem;
+  }
+
+  .artist-name-title {
+    font-size: 1.6rem;
+  }
+
+  .fecha-dia {
+    font-size: 1.8rem;
+  }
+
+  .btn-oval {
+    padding: 6px 16px;
+    font-size: 0.65rem;
+  }
+}

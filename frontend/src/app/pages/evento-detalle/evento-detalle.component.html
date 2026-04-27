@@ -1,0 +1,164 @@
+<div class="artist-detail-container" *ngIf="artistaActual">
+  <section class="hero-image-side">
+    <img [src]="artistaActual.imagen" [alt]="artistaActual.nombre" />
+    <div class="overlay-gradient"></div>
+  </section>
+
+  <section class="info-content-side">
+    <nav>
+      <a routerLink="/" class="back-link">← VOLVER A EVENTOS</a>
+    </nav>
+
+    <header class="artist-header">
+      <h1 class="artist-name-title">
+        {{ artistaActual.nombre || "Cargando Artista..." }}
+      </h1>
+    </header>
+
+    <div class="fecha-destacada">
+      <span class="fecha-dia">{{ artistaActual.dia }}</span>
+      <span class="fecha-mes">{{ artistaActual.mes }}</span>
+    </div>
+
+    <div class="description-section">
+      <p class="description-text">{{ artistaActual.descripcion }}</p>
+    </div>
+
+    <div class="caracteristicas-section">
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Artista</span>
+        <span class="caracteristica-valor">{{ artistaActual.artista }}</span>
+      </div>
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Localidad</span>
+        <span class="caracteristica-valor">{{ artistaActual.localidad }}</span>
+      </div>
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Fecha</span>
+        <span class="caracteristica-valor">{{ artistaActual.fecha }}</span>
+      </div>
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Duración</span>
+        <span class="caracteristica-valor"
+          >{{ artistaActual.duracion }} minutos</span
+        >
+      </div>
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Precio</span>
+        <span class="caracteristica-valor">{{
+          artistaActual.precio | currency: "EUR" : "symbol" : "1.0-0"
+        }}</span>
+      </div>
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Plazas disponibles</span>
+        <span class="caracteristica-valor"
+          >{{ artistaActual.plazasDisponibles }} /
+          {{ artistaActual.aforoMaximo }}</span
+        >
+      </div>
+      <div class="caracteristica-item">
+        <span class="caracteristica-label">Género</span>
+        <span class="caracteristica-valor">{{ artistaActual.genero }}</span>
+      </div>
+    </div>
+
+    <!-- ================================ -->
+    <!-- SECCIÓN RESERVA                  -->
+    <!-- ================================ -->
+
+    <!-- Cliente logueado -->
+    <div
+      class="reserva-section"
+      *ngIf="artistaActual.plazasDisponibles > 0 && authService.isCliente()"
+    >
+      <!-- Reserva ya realizada -->
+      <div class="reserva-exito" *ngIf="reservaRealizada">
+        ✓ ¡Reserva realizada correctamente! Puedes verla en
+        <a routerLink="/mis-reservas">Mis Reservas</a>
+      </div>
+
+      <!-- Formulario de reserva -->
+      <div class="reserva-form" *ngIf="!reservaRealizada">
+        <h3 class="reserva-titulo">Reservar entradas</h3>
+        <p class="reserva-precio-total" *ngIf="cantidad > 0">
+          Total:
+          {{
+            artistaActual.precio * cantidad
+              | currency: "EUR" : "symbol" : "1.0-0"
+          }}
+        </p>
+
+        <div class="reserva-cantidad">
+          <label>Número de entradas (máx. 10)</label>
+          <div class="cantidad-control">
+            <button (click)="decrementarCantidad()">−</button>
+            <span>{{ cantidad }}</span>
+            <button (click)="incrementarCantidad()">+</button>
+          </div>
+        </div>
+
+        <div class="reserva-error" *ngIf="reservaError">{{ reservaError }}</div>
+
+        <button
+          class="btn-reserva"
+          (click)="realizarReserva()"
+          [disabled]="cargandoReserva"
+        >
+          {{ cargandoReserva ? "Procesando..." : "RESERVAR" }}
+        </button>
+      </div>
+    </div>
+
+    <!-- ================================ -->
+    <!-- PRÓXIMOS CONCIERTOS              -->
+    <!-- ================================ -->
+    <div class="concerts-section" *ngIf="proximosEventos.length > 0">
+      <div class="section-header">
+        <h3>Próximos conciertos de {{ artistaActual.artista }}</h3>
+        <span class="ver-todos-link">VER TODOS</span>
+      </div>
+      <div
+        class="concert-row"
+        *ngFor="let c of proximosEventos"
+        (click)="irAEvento(c.id)"
+        style="cursor: pointer"
+      >
+        <div class="date-col">
+          <span class="day-red">{{ c.dia }}</span>
+          <span class="month-gray">{{ c.mes }}</span>
+        </div>
+        <div class="venue-col">
+          <strong class="venue-name">{{ c.estadio }}</strong>
+        </div>
+        <div class="status-col">
+          <div class="badge badge-soldout" *ngIf="c.soldOut">SOLD OUT</div>
+          <div class="badge badge-few" *ngIf="c.pocasEntradas">
+            POCAS ENTRADAS
+          </div>
+        </div>
+        <div class="action-col">
+          <button
+            class="btn-oval"
+            [class.btn-disabled]="c.soldOut"
+            [disabled]="c.soldOut"
+            (click)="!authService.isLoggedIn() ? abrirLogin() : irAEvento(c.id)"
+          >
+            {{ c.soldOut ? "AGOTADO" : "RESERVAR" }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="concerts-section"
+      *ngIf="proximosEventos.length === 0 && artistaActual.artista"
+    >
+      <div class="section-header">
+        <h3>Próximos conciertos de {{ artistaActual.artista }}</h3>
+      </div>
+      <div class="no-concerts">
+        No hay más conciertos programados de este artista próximamente.
+      </div>
+    </div>
+  </section>
+</div>
